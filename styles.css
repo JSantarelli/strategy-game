@@ -1,0 +1,57 @@
+body {
+  font-size: 10px;
+  font-family: Inter, sans-serif;
+}
+
+.row {
+    display: flex;
+  }
+
+  .cell {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .water {
+    background: darkturquoise;
+  }
+
+  .land {
+    background: tan;
+  }
+
+  .unit {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 4px;
+    border-radius: 4px;
+    text-align: center;
+  }
+
+  .arg {
+    background-color: lightblue;
+    color: #fff;
+    padding: 4px;
+    border-radius: 4px;
+    text-align: center;
+  }
+
+  .uk {
+    background-color: darkblue;
+    color: #fff;
+    padding: 4px;
+    border-radius: 4px;
+    text-align: center;
+  }
+
+  .selected {
+    border: 2px solid blue;
+  }
+
+  .destroyed {
+    background-color: #f44336!important;
+  }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <html lang="en">
+        <title>Strategy</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="./styles.css">
+        <link rel="stylesheet" href="./assets/fonts/inter.min.css">
+        <link rel="stylesheet" href="./assets/icons/fontawesome.min.css">
+        <!-- <script src="./assets/js/include.js"></script> -->
+    </head>
+    <body>
+        <div id="board"></div>
+
+        <div id="side-panel">
+            <div class="unit-option" data-unit-type="Mirage V Dagger">Mirage V Dagger</div>
+            <div class="unit-option" data-unit-type="Chinook CH-47">Chinook CH-47</div>
+            <!-- Add more units here -->
+          </div>
+
+        <div class="controls">
+            <button id="moveButton" disabled>Move</button>
+            <button id="attackButton" disabled>Attack</button>
+            <div id="turnIndicator"></div>
+        </div>
+    
+        <script src="/js/board.js"></script>
+        <script src="/js/logic.js"></script>
+        <script src="/js/units.js"></script>
+        <script src="/main.js"></script>
+    </body>
+
+</html>
