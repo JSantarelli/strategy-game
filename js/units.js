@@ -69,7 +69,7 @@ const availableUnits = [
     shield: 20,          
     type: "infantry",
     team: "arg",
-    imgPath: ''
+    imgPath: 'arg-soldados.png'
   },
 
   // UK

@@ -197,4 +197,54 @@ class Game {
     this.updateButtonStates(); // Update button states after switching turns
     document.getElementById('turnIndicator').textContent = `It's now ${this.currentTeam}'s turn.`;
   }
+
+  endTurn() {
+    const victoryMessage = this.checkVictoryConditions();
+    if (victoryMessage) {
+      alert(victoryMessage); // Or handle game-over state in UI
+      // Additional code to reset or end the game
+    } else {
+      this.switchTurn();
+    }
+  }
+
+  // Method to check for victory conditions
+  checkVictoryConditions() {
+    const opponent = this.currentPlayer === 'arg' ? 'uk' : 'arg';
+
+    // a. Check if the opponent has any units left on land cells
+    if (!this.hasUnitsOnLand(opponent)) {
+      console.log(`${this.currentPlayer.toUpperCase()} wins! No opponent's units on land.`);
+      return `${this.currentPlayer.toUpperCase()} wins!`;
+    }
+
+    // b. Check if all enemy units are destroyed
+    if (!this.hasRemainingUnits(opponent)) {
+      console.log(`${this.currentPlayer.toUpperCase()} wins! All enemy units are destroyed.`);
+      return `${this.currentPlayer.toUpperCase()} wins!`;
+    }
+
+    // No victory yet
+    return null;
+  }
+
+  // Helper method to check if any opponent's units are on land
+  hasUnitsOnLand(team) {
+    for (let y = 0; y < this.board.height; y++) {
+      for (let x = 0; x < this.board.width; x++) {
+        const unit = this.board.getUnitAt(x, y);
+        const terrainType = this.board.getTerrainAt(x, y);
+        if (unit && unit.team === team && terrainType === 'land') {
+          return true; // Opponent has units on land
+        }
+      }
+    }
+    return false;
+  }
+
+  // Helper method to check if any units of the opponent remain
+  hasRemainingUnits(team) {
+    return this.board.getUnitsByTeam(team).length > 0;
+  }
+
 }
