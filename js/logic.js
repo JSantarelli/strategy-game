@@ -4,7 +4,11 @@ class Game {
     this.selectedUnit = null;
     this.currentTeam = 'arg'; // Track current team
     this.unitToAdd = null;
-
+    // this.budget = {
+    //   arg: initialBudget,
+    //   uk: initialBudget
+    // };
+    
     // Get references to the buttons
     this.moveButton = document.getElementById('moveButton');
     this.attackButton = document.getElementById('attackButton');

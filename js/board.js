@@ -1,11 +1,26 @@
+const predefinedGrid = [
+  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+  ['water', 'water', 'water', 'water', 'water', 'land', 'water', 'water', 'land', 'water', 'water', 'water', 'land', 'land', 'land', 'water'],
+  ['water', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water'],
+  ['water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'land', 'land', 'land', 'water'],
+  ['water', 'land', 'land', 'water', 'water', 'water', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'land', 'land', 'water'],
+  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water']
+];
+
 class Board {
   constructor(width, height) {
     this.width = width;
     this.height = height;
-    this.grid = Array.from({ length: height }, () => 
-      Array.from({ length: width }, () => ({
+    this.grid = this.createGrid();
+  }
+
+  createGrid() {
+    return predefinedGrid.map(row => 
+      row.map(cell => ({
         unit: null,
-        terrain: Math.random() < 0.5 ? 'land' : 'water'
+        terrain: cell
       }))
     );
   }
@@ -17,16 +32,19 @@ class Board {
   placeUnit(unit, x, y) {
     if (this.isWithinBounds(x, y)) {
       const cell = this.grid[y][x];
-
-        // Check if the terrain is compatible
-        if (this.isTerrainCompatible(unit, cell.terrain)) {
+  
+      // if (this.selectedUnit && this.selectedUnit.team === this.currentTeam) {
+        if (this.isTerrainCompatible(unit, cell.terrain)) { 
           cell.unit = unit;
           return true;
         } else {
           console.log(`Unit ${unit.name} cannot be placed on ${cell.terrain} terrain.`);
           return false;
         }
-
+      // } else {
+      //   console.log(`Unit ${unit.name} does not belong to the current team.`);
+      //   return false;
+      // }
     }
     return false;
   }
@@ -97,6 +115,7 @@ class Board {
         cell.dataset.y = y;
   
         const unit = this.getUnitAt(x, y);
+        
         if (unit) {
           const unitDiv = document.createElement('div');
           unitDiv.className = `unit ${unit.state} ${unit.team}`;
