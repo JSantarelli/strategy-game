@@ -94,11 +94,21 @@ const availableUnits = [
     firePower: 35,
     fireScope: 8,
     displacement: 2,
-    stamina: 110,
+    stamina: 100,
     shield: 25,
     type: "aircraft carrier",
     team: "uk",
   },
+  {
+    name: "SAS Soldier",
+    firePower: 10,
+    fireScope: 3,
+    displacement: 1,
+    stamina: 20,
+    shield: 5,
+    type: "infantry",
+    team: "uk",
+  }
 ];
 
 class Unit {
@@ -126,5 +136,4 @@ class Unit {
     isDestroyed() {
       return this.state === 'destroyed';
     }
-
   }

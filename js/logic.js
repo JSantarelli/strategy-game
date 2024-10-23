@@ -3,7 +3,6 @@ class Game {
     this.board = board;
     this.selectedUnit = null;
     this.currentTeam = 'arg'; // Track current team
-
     this.unitToAdd = null;
 
     // Get references to the buttons
@@ -194,4 +193,6 @@ class Game {
     document.getElementById('turnIndicator').textContent = `It's now ${this.currentTeam}'s turn.`;
   }
   
+  is
+
 }
