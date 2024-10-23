@@ -2,13 +2,9 @@ class Game {
   constructor(board) {
     this.board = board;
     this.selectedUnit = null;
-    this.currentTeam = 'arg'; // Track current team
     this.unitToAdd = null;
-    // this.budget = {
-    //   arg: initialBudget,
-    //   uk: initialBudget
-    // };
-    
+    this.currentTeam = 'arg'; 
+
     // Get references to the buttons
     this.moveButton = document.getElementById('moveButton');
     this.attackButton = document.getElementById('attackButton');
@@ -37,12 +33,14 @@ class Game {
       return new Unit(
         unitConfig.name,
         unitConfig.firePower,
-        unitConfig.displacement,
         unitConfig.fireScope,
+        unitConfig.displacement,
         unitConfig.stamina,
         unitConfig.shield,
+        unitConfig.cost,
         unitConfig.type,
-        unitConfig.team
+        unitConfig.team,
+        unitConfig.imgPath
       );
     }
       return null;
@@ -51,6 +49,7 @@ class Game {
   selectUnit(unit) {
     // Only allow selection if the unit belongs to the current team
     if (unit.isDestroyed() || unit.team !== this.currentTeam) return;
+    console.log('selected!')
 
     if (this.selectedUnit === unit) {
       this.selectedUnit.state = 'idle';
@@ -82,8 +81,10 @@ class Game {
         this.selectedUnitType.displacement,
         this.selectedUnitType.stamina,
         this.selectedUnitType.shield,
+        this.selectedUnitType.cost,
         this.selectedUnitType.type,
-        this.selectedUnitType.team
+        this.selectedUnitType.team,
+        this.selectedUnitType.imgPath
       );
 
       // Place the unit and reset selection
@@ -196,7 +197,4 @@ class Game {
     this.updateButtonStates(); // Update button states after switching turns
     document.getElementById('turnIndicator').textContent = `It's now ${this.currentTeam}'s turn.`;
   }
-  
-  is
-
 }

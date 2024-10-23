@@ -8,7 +8,18 @@ body {
   height: 100vh;
 }
 
-.img {
+.panel--bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  > fieldset {
+    flex: 1;
+    display: inline;
+  }
+}
+
+.bg__map {
   position: absolute;
   top: 0;
   left: 0;
@@ -22,24 +33,33 @@ body {
   }
 
   .cell {
-    /* height: 50px; */
+    position: relative;
     border: 1px solid #ccc;
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 0.25;
+    opacity: 0.75;
+  }
+
+  .cell > img {
+    object-fit: cover;
+    /* height: 100%; */
+    width: 100%;
   }
 
   .water {
-    background: darkturquoise;
+    background: rgba(58, 214, 252, 0.25);
   }
 
   .land {
-    background: tan;
+    background: rgba(182, 135, 88, 0.25);
   }
 
   .unit {
-    background-color: #4caf50;
+    /* position: absolute; */
+    height: min-content;
+    top: 10px;
+    background-color: #ad9864;
     color: #fff;
     padding: 4px;
     border-radius: 4px;

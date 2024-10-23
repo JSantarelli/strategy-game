@@ -14,6 +14,12 @@ class Board {
     this.width = width;
     this.height = height;
     this.grid = this.createGrid();
+    this.currentTeam = 'uk'; 
+    this.budget = {
+      uk: 30000000, 
+      arg: 2500000 
+    };
+    this.budgetIndicator = this.showBudget();
   }
 
   createGrid() {
@@ -25,26 +31,41 @@ class Board {
     );
   }
 
+  showBudget() {
+    document.getElementById('budgetIndicator').textContent = `Initial budget: ${this.budget[this.currentTeam]}`;
+  }
+
   getUnitsByTeam(team) {
     return this.units.filter(unit => unit.team === team && !unit.isDestroyed());
   }
 
   placeUnit(unit, x, y) {
+    console.log('Current Team at start:', this.currentTeam); // Should not be undefined
+
     if (this.isWithinBounds(x, y)) {
       const cell = this.grid[y][x];
   
-      // if (this.selectedUnit && this.selectedUnit.team === this.currentTeam) {
-        if (this.isTerrainCompatible(unit, cell.terrain)) { 
-          cell.unit = unit;
-          return true;
+      // Ensure the unit belongs to the current team
+      if (this.isUnitTeam(unit)) {
+        // Check if there's enough budget to add this unit
+        if (this.canAffordUnit(unit)) {
+          // Check if the terrain is compatible
+          if (this.isTerrainCompatible(unit, cell.terrain)) {
+            cell.unit = unit;
+            this.deductCost(unit);
+            return true;
+          } else {
+            console.log(`Unit ${unit.name} cannot be placed on ${cell.terrain} terrain.`);
+            return false;
+          }
         } else {
-          console.log(`Unit ${unit.name} cannot be placed on ${cell.terrain} terrain.`);
+          console.log(`Not enough budget to place ${unit.name}.`);
           return false;
         }
-      // } else {
-      //   console.log(`Unit ${unit.name} does not belong to the current team.`);
-      //   return false;
-      // }
+      } else {
+        console.log(`Unit ${unit.name} does not belong to the current team.`);
+        return false;
+      }
     }
     return false;
   }
@@ -81,8 +102,31 @@ class Board {
     return { x: -1, y: -1 };
   }
 
+  // UNIT RULES
   isWithinBounds(x, y) {
     return x >= 0 && y >= 0 && x < this.width && y < this.height;
+  }
+    
+  // Check if the team has enough budget to afford the unit
+  isUnitTeam(unit) {
+    if (unit.team === this.currentTeam) return true;
+  }
+  
+  canAffordUnit(unit) {
+    const unitCost = unit.cost;
+    return this.budget[this.currentTeam] >= unitCost;
+  }
+  
+  deductCost(unit) {
+    const unitCost = unit.cost;
+    this.budget[this.currentTeam] -= unitCost;
+    this.updateBudgetDisplay();
+    return this.budget[this.currentTeam];
+  }
+
+  updateBudgetDisplay() {
+    const budgetDisplayElement = document.getElementById('budgetIndicator');
+    budgetDisplayElement.innerText = `Argentina: ${this.budget.arg}`;
   }
 
   isTerrainCompatible(unit, terrain) {
@@ -117,9 +161,12 @@ class Board {
         const unit = this.getUnitAt(x, y);
         
         if (unit) {
+          const unitImage = document.createElement('img');
           const unitDiv = document.createElement('div');
           unitDiv.className = `unit ${unit.state} ${unit.team}`;
-          unitDiv.innerText = `${unit.name} (Stamina: ${unit.stamina})`;
+          unitImage.src = `./assets/img/units/${unit.imgPath}`;
+          unitDiv.innerText = unit.stamina;
+          cell.appendChild(unitImage);
           cell.appendChild(unitDiv);
         }
   
@@ -141,7 +188,6 @@ class Board {
     }
   }
   
-
   onCellClick(x, y) {
     if (game.addMode && game.unitToAdd) {
       if (this.placeUnit(game.unitToAdd, x, y)) {
