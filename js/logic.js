@@ -193,23 +193,148 @@ class Game {
   }
 
   switchTurn() {
-    // Determine the current player's team
     const currentTeam = this.currentTeam;
-    // Determine the enemy team's name
     const enemyTeam = this.currentTeam === 'arg' ? 'uk' : 'arg';
-    
-    // Check if there are any remaining enemy units
+  
+    // Check if the enemy team has any remaining units before switching turns
     if (!this.hasRemainingUnits(enemyTeam)) {
-      // No remaining enemies, current team wins
       alert(`${currentTeam} wins!`);
-      // Here, you could also trigger any game-ending logic, like disabling further actions
+      this.gameOver = true;
       return;
     }
   
-    // Switch to the next player's turn if there are still enemies left
+    // Switch to the next team
     this.currentTeam = enemyTeam;
     this.updateButtonStates();
     document.getElementById('turnIndicator').textContent = `It's now ${this.currentTeam}'s turn.`;
+  
+    // If it's the AI's turn, make it play automatically
+    if (this.currentTeam === 'uk') {
+      setTimeout(() =>
+      this.performAITurn(), 1000);
+    }
+  }
+
+  performAITurn() {
+    // Get all UK units
+    const ukUnits = this.getUnitsByTeam('uk');
+    console.log('AI is performing turn with units:', ukUnits);
+  
+    // Loop through each UK unit to move or attack
+    for (const unit of ukUnits) {
+      if (!unit.isDestroyed()) {
+        // Find the closest enemy unit
+        const target = this.findNearestEnemy(unit);
+        console.log('Target found for AI:', target);
+  
+        if (target) {
+          const unitPosition = this.board.findUnitPosition(unit);
+          const targetPosition = this.board.findUnitPosition(target);
+  
+          if (unitPosition && targetPosition) {
+            const distance = this.board.getDistance(unitPosition.x, unitPosition.y, targetPosition.x, targetPosition.y);
+            console.log(`Distance from ${unit.name} to ${target.name}:`, distance);
+  
+            // If the target is within attack range, attack it
+            if (distance <= unit.attackRange) {
+              console.log(`AI attacking ${target.name} with ${unit.name}`);
+              this.attackUnit(unit, target);
+              return; // Stop after the first attack
+            }
+          }
+        }
+      }
+    }
+  
+    // Switch back to the player's turn after processing one AI unit
+    setTimeout(() => this.switchTurn(), 1000); // Add delay for realism
+  }
+  
+
+  getUnitsByTeam(team) {
+    const units = [];
+  
+    // Loop through the grid to find all units of the specified team
+    for (let y = 0; y < this.board.height; y++) {
+      for (let x = 0; x < this.board.width; x++) {
+        const unit = this.board.getUnitAt(x, y);
+        
+        // Logging to check if units are detected
+        if (unit) {
+          console.log(`Detected unit at (${x}, ${y}):`, unit);
+        }
+        
+        // Check if there's a unit and if it belongs to the specified team
+        if (unit && unit.team === team && !unit.isDestroyed()) {
+          console.log(`Found ${team} unit at (${x}, ${y})`);
+          units.push(unit);
+        }
+      }
+    }
+  
+    console.log(`All ${team} units found:`, units);
+    return units;
+  }
+
+  findNearestEnemy(unit) {
+    const enemies = this.getUnitsByTeam('arg');
+    let closestEnemy = null;
+    let shortestDistance = Infinity;
+  
+    const unitPosition = this.board.findUnitPosition(unit);
+  
+    // Loop through ARG enemies to find the closest one
+    for (const enemy of enemies) {
+      if (!enemy.isDestroyed()) {
+        const enemyPosition = this.board.findUnitPosition(enemy);
+        const distance = this.board.getDistance(unitPosition.x, unitPosition.y, enemyPosition.x, enemyPosition.y);
+        
+        if (distance < shortestDistance) {
+          shortestDistance = distance;
+          closestEnemy = enemy;
+        }
+      }
+    }
+  
+    return closestEnemy;
+  }
+  
+  // Move a unit towards a target position
+  moveUnitTowards(unit, target) {
+    const unitPosition = this.board.findUnitPosition(unit);
+    const targetPosition = this.board.findUnitPosition(target);
+    
+    if (unitPosition && targetPosition) {
+      // Calculate the direction vector
+      const dx = targetPosition.x - unitPosition.x;
+      const dy = targetPosition.y - unitPosition.y;
+      
+      // Normalize to get direction (-1, 0, or 1 for both axes)
+      const moveX = dx !== 0 ? dx / Math.abs(dx) : 0;
+      const moveY = dy !== 0 ? dy / Math.abs(dy) : 0;
+      
+      // Move unit by one step towards the target
+      const newX = unitPosition.x + moveX;
+      const newY = unitPosition.y + moveY;
+      
+      console.log(`Moving ${unit.name} from (${unitPosition.x}, ${unitPosition.y}) to (${newX}, ${newY})`);
+      this.board.moveUnit(unit, newX, newY); // Assuming moveUnit method exists
+    }
+  }
+
+  // Attack target position
+  attackUnit(attacker, target) {
+    if (!target.isDestroyed()) {
+      console.log(`${attacker.name} attacks ${target.name}`);
+      target.takeDamage(attacker.attackPower); // Assuming takeDamage reduces health
+      if (target.isDestroyed()) {
+        console.log(`${target.name} has been destroyed!`);
+      } else {
+        console.log(`${target.name} has ${target.health} health remaining.`);
+      }
+    } else {
+      console.log(`${target.name} is already destroyed, cannot attack.`);
+    }
   }
   
   hasRemainingUnits(team) {
