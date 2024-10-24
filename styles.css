@@ -35,61 +35,61 @@ body {
     display: flex;
   }
 
-  .cell {
-    position: relative;
-    border: 1px solid #ccc;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    opacity: 1;
-  }
+.cell {
+  position: relative;
+  border: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+}
 
-  .cell > img {
-    object-fit: cover;
-    /* height: 100%; */
-    width: 100%;
-  }
+.cell > img {
+  object-fit: cover;
+  /* height: 100%; */
+  width: 100%;
+}
 
-  .water {
-    background: rgba(58, 214, 252, 0.5);
-  }
+.water {
+  background: rgba(58, 214, 252, 0.5);
+}
 
-  .land {
-    background: rgba(182, 135, 88, 0.5);
-  }
+.land {
+  background: rgba(182, 135, 88, 0.5);
+}
 
-  .unit {
-    /* position: absolute; */
-    height: min-content;
-    top: 10px;
-    background-color: #ad9864;
-    color: #fff;
-    padding: 4px;
-    border-radius: 4px;
-    text-align: center;
-  }
+.unit {
+  /* position: absolute; */
+  height: min-content;
+  top: 10px;
+  background-color: #ad9864;
+  color: #fff;
+  padding: 4px;
+  border-radius: 4px;
+  text-align: center;
+}
 
-  .arg {
-    background-color: lightblue;
-    color: #fff;
-    padding: 4px;
-    border-radius: 4px;
-    text-align: center;
-  }
+.arg {
+  background-color: lightblue;
+  color: #fff;
+  padding: 4px;
+  border-radius: 4px;
+  text-align: center;
+}
 
-  .uk {
-    background-color: darkblue;
-    color: #fff;
-    padding: 4px;
-    border-radius: 4px;
-    text-align: center;
-  }
+.uk {
+  background-color: darkblue;
+  color: #fff;
+  padding: 4px;
+  border-radius: 4px;
+  text-align: center;
+}
 
-  .selected {
-    border: 2px solid blue;
-  }
+.selected {
+  border: 2px solid blue;
+}
 
-  .destroyed {
-    background-color: #f44336!important;
-  }
+.destroyed {
+  background-color: #f44336!important;
+}

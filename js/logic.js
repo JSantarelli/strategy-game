@@ -193,58 +193,37 @@ class Game {
   }
 
   switchTurn() {
-    this.currentTeam = this.currentTeam === 'arg' ? 'uk' : 'arg';
-    this.updateButtonStates(); // Update button states after switching turns
+    // Determine the current player's team
+    const currentTeam = this.currentTeam;
+    // Determine the enemy team's name
+    const enemyTeam = this.currentTeam === 'arg' ? 'uk' : 'arg';
+    
+    // Check if there are any remaining enemy units
+    if (!this.hasRemainingUnits(enemyTeam)) {
+      // No remaining enemies, current team wins
+      alert(`${currentTeam} wins!`);
+      // Here, you could also trigger any game-ending logic, like disabling further actions
+      return;
+    }
+  
+    // Switch to the next player's turn if there are still enemies left
+    this.currentTeam = enemyTeam;
+    this.updateButtonStates();
     document.getElementById('turnIndicator').textContent = `It's now ${this.currentTeam}'s turn.`;
   }
-
-  endTurn() {
-    const victoryMessage = this.checkVictoryConditions();
-    if (victoryMessage) {
-      alert(victoryMessage); // Or handle game-over state in UI
-      // Additional code to reset or end the game
-    } else {
-      this.switchTurn();
-    }
-  }
-
-  // Method to check for victory conditions
-  checkVictoryConditions() {
-    const opponent = this.currentPlayer === 'arg' ? 'uk' : 'arg';
-
-    // a. Check if the opponent has any units left on land cells
-    if (!this.hasUnitsOnLand(opponent)) {
-      console.log(`${this.currentPlayer.toUpperCase()} wins! No opponent's units on land.`);
-      return `${this.currentPlayer.toUpperCase()} wins!`;
-    }
-
-    // b. Check if all enemy units are destroyed
-    if (!this.hasRemainingUnits(opponent)) {
-      console.log(`${this.currentPlayer.toUpperCase()} wins! All enemy units are destroyed.`);
-      return `${this.currentPlayer.toUpperCase()} wins!`;
-    }
-
-    // No victory yet
-    return null;
-  }
-
-  // Helper method to check if any opponent's units are on land
-  hasUnitsOnLand(team) {
+  
+  hasRemainingUnits(team) {
+    // Loop through the entire board to check if the specified team's units remain
     for (let y = 0; y < this.board.height; y++) {
       for (let x = 0; x < this.board.width; x++) {
         const unit = this.board.getUnitAt(x, y);
-        const terrainType = this.board.getTerrainAt(x, y);
-        if (unit && unit.team === team && terrainType === 'land') {
-          return true; // Opponent has units on land
+        // If there's an enemy unit that is not destroyed, return true
+        if (unit && unit.team === team && !unit.isDestroyed()) {
+          return true;
         }
       }
     }
     return false;
-  }
-
-  // Helper method to check if any units of the opponent remain
-  hasRemainingUnits(team) {
-    return this.board.getUnitsByTeam(team).length > 0;
-  }
+  }  
 
 }

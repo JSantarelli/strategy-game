@@ -9,7 +9,7 @@ const availableUnits = [
     cost: 10000,          
     type: "aircraft",
     team: "arg",
-    imgPath: ''
+    imgPath: 'arg-dagger.png'
   },
   {
     name: "Chinook CH-47",
@@ -21,7 +21,7 @@ const availableUnits = [
     cost: 20000000,           
     type: "aircraft",
     team: "arg",
-    imgPath: ''
+    imgPath: 'arg-chinook.png'
   },
   {
     name: "FMA IA 58 Pucará",
@@ -33,7 +33,7 @@ const availableUnits = [
     cost: 8000000,            
     type: "aircraft",
     team: "arg",
-    imgPath: ''
+    imgPath: 'arg-pucara.png'
   },
   {
     name: "Super Etendard",
@@ -45,7 +45,7 @@ const availableUnits = [
     cost: 15000000,            
     type: "aircraft",
     team: "arg",
-    imgPath: ''
+    imgPath: 'arg-etendard.png'
   },
   {
     name: "ARA 25 DE MAYO",
@@ -57,7 +57,7 @@ const availableUnits = [
     cost: 60000000,            
     type: "aircraft carrier",
     team: "arg",
-    imgPath: ''
+    imgPath: 'arg-ara-25.png'
   },
   {
     name: "Soldado FA",
@@ -83,7 +83,7 @@ const availableUnits = [
     cost: 25000000,           
     type: "aircraft",
     team: "uk",
-    imgPath: ''
+    imgPath: 'uk-avro.png'
   },
   {
     name: "Sea Harrier",
@@ -95,7 +95,7 @@ const availableUnits = [
     cost: 20000000,           
     type: "aircraft",
     team: "uk",
-    imgPath: ''
+    imgPath: 'uk-harrier.png'
   },
   {
     name: "Sea King",
@@ -107,7 +107,7 @@ const availableUnits = [
     cost: 12000000,           
     type: "aircraft",
     team: "uk",
-    imgPath: "sea-king.png"
+    imgPath: "uk-sea-king.png"
   },
   {
     name: "Nimrod MR2",
@@ -119,7 +119,7 @@ const availableUnits = [
     cost: 15000000,           
     type: "aircraft",
     team: "uk",
-    imgPath: ''
+    imgPath: 'uk-nimrod.png'
   },
   {
     name: "HMS Invincible",
@@ -131,7 +131,7 @@ const availableUnits = [
     cost: 80000000,            
     type: "aircraft carrier",
     team: "uk",
-    imgPath: ''
+    imgPath: 'uk-invincible.png'
   },
   {
     name: "SAS Soldier",

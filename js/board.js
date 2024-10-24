@@ -17,7 +17,7 @@ class Board {
     this.currentTeam = 'uk'; 
     this.budget = {
       uk: 30000000, 
-      arg: 2500000 
+      arg: 2500000000 
     };
     this.budgetIndicator = this.showBudget();
   }
@@ -35,12 +35,8 @@ class Board {
     document.getElementById('budgetIndicator').textContent = `Initial budget: ${this.budget[this.currentTeam]}`;
   }
 
-  getUnitsByTeam(team) {
-    return this.units.filter(unit => unit.team === team && !unit.isDestroyed());
-  }
-
   placeUnit(unit, x, y) {
-    console.log('Current Team at start:', this.currentTeam); // Should not be undefined
+    console.log('Current Team at start:', this.currentTeam);
 
     if (this.isWithinBounds(x, y)) {
       const cell = this.grid[y][x];
