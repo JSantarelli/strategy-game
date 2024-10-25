@@ -41,11 +41,8 @@ class Board {
     if (this.isWithinBounds(x, y)) {
       const cell = this.grid[y][x];
   
-      // Ensure the unit belongs to the current team
       if (this.isUnitTeam(unit)) {
-        // Check if there's enough budget to add this unit
         if (this.canAffordUnit(unit)) {
-          // Check if the terrain is compatible
           if (this.isTerrainCompatible(unit, cell.terrain)) {
             cell.unit = unit;
             this.deductCost(unit);
@@ -63,6 +60,7 @@ class Board {
         return false;
       }
     }
+    game.switchTurn();
     return false;
   }
   

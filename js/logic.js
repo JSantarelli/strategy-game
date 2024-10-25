@@ -5,20 +5,18 @@ class Game {
     this.unitToAdd = null;
     this.currentTeam = 'arg'; 
 
-    // Get references to the buttons
     this.moveButton = document.getElementById('moveButton');
     this.attackButton = document.getElementById('attackButton');
 
-    // Add event listeners to buttons
     this.moveButton.addEventListener('click', () => this.handleMove());
     this.attackButton.addEventListener('click', () => this.handleAttack());
 
-    this.updateButtonStates(); // Update buttons on initialization
+    this.updateButtonStates();
   }
 
   enableAddMode(unitType) {
     this.addMode = true;
-    this.unitToAdd = this.createUnit(unitType); // Create the unit object when mode is enabled
+    this.unitToAdd = this.createUnit(unitType);
   }
 
   disableAddMode() {
@@ -47,7 +45,6 @@ class Game {
   }
 
   selectUnit(unit) {
-    // Only allow selection if the unit belongs to the current team
     if (unit.isDestroyed() || unit.team !== this.currentTeam) return;
     console.log('selected!')
 
@@ -64,16 +61,12 @@ class Game {
     this.updateButtonStates();
   }
 
-  // Method to add a new unit to the board
   placeUnitOnBoard(event) {
-    if (!this.selectedUnitType) return; // No unit type selected
+    if (!this.selectedUnitType) return; 
 
-    // Assuming you have a way to get the clicked cell's coordinates
     const { x, y } = this.board.getCoordinatesFromClick(event);
 
-    // Check if the cell is empty before placing
     if (!this.board.getUnitAt(x, y)) {
-      // Create a new instance of the selected unit type
       const newUnit = new Unit(
         this.selectedUnitType.name,
         this.selectedUnitType.firePower,
@@ -87,7 +80,6 @@ class Game {
         this.selectedUnitType.imgPath
       );
 
-      // Place the unit and reset selection
       this.board.placeUnit(newUnit, x, y);
       this.board.renderBoard('board');
       this.selectedUnitType = null;
@@ -100,11 +92,9 @@ class Game {
   updateButtonStates() {
     const isCurrentTeam = this.selectedUnit && this.selectedUnit.team === this.currentTeam;
 
-    // Enable buttons based on the current team
     if (isCurrentTeam) {
       this.moveButton.disabled = false;
 
-      // Enable attack button only if there's a target within range
       const target = this.findTarget();
       this.attackButton.disabled = !target;
     } else {
@@ -115,7 +105,6 @@ class Game {
 
   handleMove() {
     alert('Select a cell to move to.');
-    // Disable the move button until a move is performed.
     this.moveButton.disabled = true;
   }
 
@@ -126,7 +115,6 @@ class Game {
         this.attackSelectedUnit(target);
       }
     }
-    // Disable the attack button after the action.
     this.attackButton.disabled = true;
   }
 
@@ -139,17 +127,15 @@ class Game {
         this.board.moveUnit(this.selectedUnit, x, y);
         this.selectedUnit.state = 'idle';
         this.selectedUnit = null;
-        this.board.renderBoard('board'); // Re-render the board after changes.
-        this.updateButtonStates(); // Update button states after moving.
+        this.board.renderBoard('board');
+        this.updateButtonStates();
 
-        // Switch turn after a move
         this.switchTurn();
       }
     }
   }
 
   findTarget() {
-    // Find the closest target within range for the selected unit.
     if (!this.selectedUnit) return null;
 
     const { x: originX, y: originY } = this.board.findUnitPosition(this.selectedUnit);
@@ -172,8 +158,8 @@ class Game {
       this.selectedUnit &&
       this.selectedUnit.state === 'selected' &&
       !target.isDestroyed() &&
-      this.selectedUnit.team !== target.team // Prevent attacking own team
-    ) {
+      this.selectedUnit.team !== target.team
+      ) {
       const { x: originX, y: originY } = this.board.findUnitPosition(this.selectedUnit);
       const { x: targetX, y: targetY } = this.board.findUnitPosition(target);
       const distance = this.board.getDistance(originX, originY, targetX, targetY);
@@ -183,10 +169,8 @@ class Game {
         this.selectedUnit.state = 'idle';
         this.selectedUnit = null;
 
-        // Re-render the board after the attack
         this.board.renderBoard('board');
 
-        // Switch turn after an attack
         this.switchTurn();
       }
     }
@@ -196,19 +180,16 @@ class Game {
     const currentTeam = this.currentTeam;
     const enemyTeam = this.currentTeam === 'arg' ? 'uk' : 'arg';
   
-    // Check if the enemy team has any remaining units before switching turns
     if (!this.hasRemainingUnits(enemyTeam)) {
       alert(`${currentTeam} wins!`);
       this.gameOver = true;
       return;
     }
   
-    // Switch to the next team
     this.currentTeam = enemyTeam;
     this.updateButtonStates();
     document.getElementById('turnIndicator').textContent = `It's now ${this.currentTeam}'s turn.`;
   
-    // If it's the AI's turn, make it play automatically
     if (this.currentTeam === 'uk') {
       setTimeout(() =>
       this.performAITurn(), 1000);
@@ -216,55 +197,50 @@ class Game {
   }
 
   performAITurn() {
-    // Get all UK units
     const ukUnits = this.getUnitsByTeam('uk');
     console.log('AI is performing turn with units:', ukUnits);
   
-    // Loop through each UK unit to move or attack
-    for (const unit of ukUnits) {
-      if (!unit.isDestroyed()) {
-        // Find the closest enemy unit
-        const target = this.findNearestEnemy(unit);
-        console.log('Target found for AI:', target);
-  
-        if (target) {
-          const unitPosition = this.board.findUnitPosition(unit);
-          const targetPosition = this.board.findUnitPosition(target);
-  
-          if (unitPosition && targetPosition) {
-            const distance = this.board.getDistance(unitPosition.x, unitPosition.y, targetPosition.x, targetPosition.y);
-            console.log(`Distance from ${unit.name} to ${target.name}:`, distance);
-  
-            // If the target is within attack range, attack it
-            if (distance <= unit.attackRange) {
-              console.log(`AI attacking ${target.name} with ${unit.name}`);
-              this.attackUnit(unit, target);
-              return; // Stop after the first attack
+      for (const unit of ukUnits) {
+        if (!unit.isDestroyed()) {
+          const target = this.findNearestEnemy(unit);
+          console.log('Target found for AI:', target);
+    
+          if (target) {
+            const unitPosition = this.board.findUnitPosition(unit);
+            const targetPosition = this.board.findUnitPosition(target);
+    
+            if (unitPosition && targetPosition) {
+              const distance = this.board.getDistance(unitPosition.x, unitPosition.y, targetPosition.x, targetPosition.y);
+              console.log(`Distance from ${unit.name} to ${target.name}:`, distance);
+
+              if (distance <= unit.fireScope) {
+                console.log(`AI attacking ${target.name} with ${unit.name}`);
+                this.attackUnit(unit, target);
+                this.switchTurn();
+
+                return;
+              } else {
+              this.moveUnitTowards(unit, target);
+              this.switchTurn();
             }
           }
         }
       }
-    }
-  
-    // Switch back to the player's turn after processing one AI unit
-    setTimeout(() => this.switchTurn(), 1000); // Add delay for realism
+      this.switchTurn(); // Switch turn immediately if no action was taken
+    }  
   }
   
-
   getUnitsByTeam(team) {
     const units = [];
   
-    // Loop through the grid to find all units of the specified team
     for (let y = 0; y < this.board.height; y++) {
       for (let x = 0; x < this.board.width; x++) {
         const unit = this.board.getUnitAt(x, y);
         
-        // Logging to check if units are detected
         if (unit) {
           console.log(`Detected unit at (${x}, ${y}):`, unit);
         }
         
-        // Check if there's a unit and if it belongs to the specified team
         if (unit && unit.team === team && !unit.isDestroyed()) {
           console.log(`Found ${team} unit at (${x}, ${y})`);
           units.push(unit);
@@ -283,7 +259,6 @@ class Game {
   
     const unitPosition = this.board.findUnitPosition(unit);
   
-    // Loop through ARG enemies to find the closest one
     for (const enemy of enemies) {
       if (!enemy.isDestroyed()) {
         const enemyPosition = this.board.findUnitPosition(enemy);
@@ -305,20 +280,17 @@ class Game {
     const targetPosition = this.board.findUnitPosition(target);
     
     if (unitPosition && targetPosition) {
-      // Calculate the direction vector
       const dx = targetPosition.x - unitPosition.x;
       const dy = targetPosition.y - unitPosition.y;
       
-      // Normalize to get direction (-1, 0, or 1 for both axes)
       const moveX = dx !== 0 ? dx / Math.abs(dx) : 0;
       const moveY = dy !== 0 ? dy / Math.abs(dy) : 0;
       
-      // Move unit by one step towards the target
       const newX = unitPosition.x + moveX;
       const newY = unitPosition.y + moveY;
       
       console.log(`Moving ${unit.name} from (${unitPosition.x}, ${unitPosition.y}) to (${newX}, ${newY})`);
-      this.board.moveUnit(unit, newX, newY); // Assuming moveUnit method exists
+      this.board.moveUnit(unit, newX, newY);
     }
   }
 
@@ -326,11 +298,11 @@ class Game {
   attackUnit(attacker, target) {
     if (!target.isDestroyed()) {
       console.log(`${attacker.name} attacks ${target.name}`);
-      target.takeDamage(attacker.attackPower); // Assuming takeDamage reduces health
+      target.takeDamage(attacker.firePower);
       if (target.isDestroyed()) {
         console.log(`${target.name} has been destroyed!`);
       } else {
-        console.log(`${target.name} has ${target.health} health remaining.`);
+        console.log(`${target.name} has ${target.stamina} health remaining.`);
       }
     } else {
       console.log(`${target.name} is already destroyed, cannot attack.`);
@@ -338,11 +310,9 @@ class Game {
   }
   
   hasRemainingUnits(team) {
-    // Loop through the entire board to check if the specified team's units remain
     for (let y = 0; y < this.board.height; y++) {
       for (let x = 0; x < this.board.width; x++) {
         const unit = this.board.getUnitAt(x, y);
-        // If there's an enemy unit that is not destroyed, return true
         if (unit && unit.team === team && !unit.isDestroyed()) {
           return true;
         }
@@ -350,5 +320,4 @@ class Game {
     }
     return false;
   }  
-
 }

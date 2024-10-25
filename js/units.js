@@ -163,6 +163,7 @@ class Unit {
     }
   
     takeDamage(damage) {
+      console.log(damage);
       const effectiveDamage = Math.max(0, damage - this.shield);
       this.stamina -= effectiveDamage;
       if (this.stamina <= 0) {
