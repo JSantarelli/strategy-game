@@ -60,7 +60,6 @@ class Board {
         return false;
       }
     }
-    game.switchTurn();
     return false;
   }
   
@@ -137,9 +136,8 @@ class Board {
 
   renderBoard(containerId) {
     const container = document.getElementById(containerId);
-    container.innerHTML = ''; // Clear previous render
+    container.innerHTML = '';
   
-    // Set up grid styles for the container based on board size
     container.style.display = 'grid';
     container.style.gridTemplateColumns = `repeat(${this.width}, 1fr)`;
     container.style.gridTemplateRows = `repeat(${this.height}, 1fr)`;
@@ -153,23 +151,25 @@ class Board {
         cell.dataset.y = y;
   
         const unit = this.getUnitAt(x, y);
-        
+  
         if (unit) {
           const unitImage = document.createElement('img');
-          const unitDiv = document.createElement('div');
-          unitDiv.className = `unit ${unit.state} ${unit.team}`;
+          // const unitDiv = document.createElement('div');
+  
+          unitImage.id = `unit-${unit.id}`;
+          unitImage.className = `unit ${unit.state} ${unit.team} fade-in`;
           unitImage.src = `./assets/img/units/${unit.imgPath}`;
-          unitDiv.innerText = unit.stamina;
+          unitImage.innerText = unit.stamina;
+          // unitImage.appendChild(unitImage);
+  
           cell.appendChild(unitImage);
-          cell.appendChild(unitDiv);
         }
   
         cell.addEventListener('click', () => this.onCellClick(x, y));
         container.appendChild(cell);
       }
     }
-    
-    // Example setup for side panel unit selection
+  
     document.querySelectorAll('.unit-option').forEach(option => {
       option.addEventListener('click', (event) => {
         const unitType = event.target.dataset.unitType;
@@ -178,14 +178,15 @@ class Board {
     });
   
     function handleAddUnit(unitType) {
-      game.enableAddMode(unitType); // Activate add mode and specify the unit type
+      game.enableAddMode(unitType);
     }
   }
   
   onCellClick(x, y) {
     if (game.addMode && game.unitToAdd) {
       if (this.placeUnit(game.unitToAdd, x, y)) {
-        game.disableAddMode(); // Disable add mode after placing the unit
+        game.disableAddMode();
+        game.switchTurn();
       }
     } else {
       const unit = this.getUnitAt(x, y);
@@ -195,8 +196,6 @@ class Board {
         game.moveSelectedUnit(x, y);
       }
     }
-
-    // Re-render the board after any interaction
     this.renderBoard('board');
   }
 }

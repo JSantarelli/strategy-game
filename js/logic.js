@@ -29,6 +29,7 @@ class Game {
   
     if (unitConfig) {
       return new Unit(
+        unitConfig.id,
         unitConfig.name,
         unitConfig.firePower,
         unitConfig.fireScope,
@@ -118,22 +119,45 @@ class Game {
     this.attackButton.disabled = true;
   }
 
+  getUnitElement(unit) {
+    return document.getElementById(`unit-${unit.id}`);
+  }
+  
   moveSelectedUnit(x, y) {
     if (this.selectedUnit && this.selectedUnit.state === 'selected') {
       const { x: currentX, y: currentY } = this.board.findUnitPosition(this.selectedUnit);
       const distance = this.board.getDistance(currentX, currentY, x, y);
-
+  
       if (distance <= this.selectedUnit.displacement) {
-        this.board.moveUnit(this.selectedUnit, x, y);
-        this.selectedUnit.state = 'idle';
-        this.selectedUnit = null;
-        this.board.renderBoard('board');
-        this.updateButtonStates();
-
-        this.switchTurn();
+        const unitElement = this.getUnitElement(this.selectedUnit);
+        if (unitElement) {
+          unitElement.classList.add('fade-out'); // Start fade-out effect
+  
+          // Delay the move until the fade-out animation finishes
+          setTimeout(() => {
+            this.board.moveUnit(this.selectedUnit, x, y);
+            this.selectedUnit.state = 'idle';
+            this.selectedUnit = null;
+            this.board.renderBoard('board');
+            this.updateButtonStates();
+  
+            // Re-add fade-in effect after the move
+            const movedUnitElement = this.getUnitElement(unit);
+            if (movedUnitElement) {
+              movedUnitElement.classList.remove('fade-out');
+              movedUnitElement.classList.add('fade-in');
+    
+              setTimeout(() => {
+                movedUnitElement.classList.remove('fade-in');
+              }, 500); // Match the duration of the CSS transition
+            }
+            
+            this.switchTurn();
+          }, 500); // Match the duration of fade-out
+        }
       }
     }
-  }
+  }  
 
   findTarget() {
     if (!this.selectedUnit) return null;
@@ -217,11 +241,11 @@ class Game {
                 console.log(`AI attacking ${target.name} with ${unit.name}`);
                 this.attackUnit(unit, target);
                 this.switchTurn();
-
                 return;
               } else {
               this.moveUnitTowards(unit, target);
               this.switchTurn();
+              return;
             }
           }
         }
@@ -278,22 +302,40 @@ class Game {
   moveUnitTowards(unit, target) {
     const unitPosition = this.board.findUnitPosition(unit);
     const targetPosition = this.board.findUnitPosition(target);
-    
+  
     if (unitPosition && targetPosition) {
       const dx = targetPosition.x - unitPosition.x;
       const dy = targetPosition.y - unitPosition.y;
-      
+  
       const moveX = dx !== 0 ? dx / Math.abs(dx) : 0;
       const moveY = dy !== 0 ? dy / Math.abs(dy) : 0;
-      
+  
       const newX = unitPosition.x + moveX;
       const newY = unitPosition.y + moveY;
-      
-      console.log(`Moving ${unit.name} from (${unitPosition.x}, ${unitPosition.y}) to (${newX}, ${newY})`);
-      this.board.moveUnit(unit, newX, newY);
+  
+      const unitElement = this.getUnitElement(unit);
+      if (unitElement) {
+        unitElement.classList.add('fade-out'); // Start fade-out effect
+  
+        setTimeout(() => {
+          this.board.moveUnit(unit, newX, newY); // Move the unit in the grid
+          this.board.renderBoard('board'); // Re-render the board
+  
+          // Re-add fade-in effect after the move
+          const movedUnitElement = this.getUnitElement(unit);
+          if (movedUnitElement) {
+            movedUnitElement.classList.remove('fade-out');
+            movedUnitElement.classList.add('fade-in');
+  
+            setTimeout(() => {
+              movedUnitElement.classList.remove('fade-in');
+            }, 500); // Match the duration of the CSS transition
+          }
+        }, 500); // Match the duration of fade-out
+      }
     }
   }
-
+  
   // Attack target position
   attackUnit(attacker, target) {
     if (!target.isDestroyed()) {
@@ -307,6 +349,7 @@ class Game {
     } else {
       console.log(`${target.name} is already destroyed, cannot attack.`);
     }
+    this.board.renderBoard('board');
   }
   
   hasRemainingUnits(team) {

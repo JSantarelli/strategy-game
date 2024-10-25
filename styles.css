@@ -72,10 +72,11 @@ body {
   padding: 4px;
   border-radius: 4px;
   text-align: center;
+  transition: opacity 0.5s ease;
 }
 
 .arg {
-  background-color: lightblue;
+  /* background-color: lightblue; */
   color: #fff;
   padding: 4px;
   border-radius: 4px;
@@ -83,7 +84,7 @@ body {
 }
 
 .uk {
-  background-color: darkblue;
+  /* background-color: darkblue; */
   color: #fff;
   padding: 4px;
   border-radius: 4px;
@@ -95,5 +96,34 @@ body {
 }
 
 .destroyed {
-  background-color: #f44336!important;
+  opacity: .25;
+  mix-blend-mode: color-burn;
+}
+
+/* Moves */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+}
+
+.fade-out {
+  animation: fadeOut 1s forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
