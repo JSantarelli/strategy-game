@@ -78,7 +78,8 @@ class Game {
         this.selectedUnitType.cost,
         this.selectedUnitType.type,
         this.selectedUnitType.team,
-        this.selectedUnitType.imgPath
+        this.selectedUnitType.imgPath,
+        this.selectedUnitType.span,
       );
 
       this.board.placeUnit(newUnit, x, y);
@@ -131,9 +132,8 @@ class Game {
       if (distance <= this.selectedUnit.displacement) {
         const unitElement = this.getUnitElement(this.selectedUnit);
         if (unitElement) {
-          unitElement.classList.add('fade-out'); // Start fade-out effect
+          unitElement.classList.add('fade-in');
   
-          // Delay the move until the fade-out animation finishes
           setTimeout(() => {
             this.board.moveUnit(this.selectedUnit, x, y);
             this.selectedUnit.state = 'idle';
@@ -141,19 +141,18 @@ class Game {
             this.board.renderBoard('board');
             this.updateButtonStates();
   
-            // Re-add fade-in effect after the move
-            const movedUnitElement = this.getUnitElement(unit);
-            if (movedUnitElement) {
-              movedUnitElement.classList.remove('fade-out');
-              movedUnitElement.classList.add('fade-in');
+            // const movedUnitElement = this.getUnitElement(selectedUnit);
+            // if (movedUnitElement) {
+            //   movedUnitElement.classList.remove('fade-out');
+            //   movedUnitElement.classList.add('fade-in');
     
-              setTimeout(() => {
-                movedUnitElement.classList.remove('fade-in');
-              }, 500); // Match the duration of the CSS transition
-            }
+            //   setTimeout(() => {
+            //     movedUnitElement.classList.remove('fade-in');
+            //   }, 500);
+            // }
 
             this.switchTurn();
-          }, 500); // Match the duration of fade-out
+          }, 1000);
         }
       }
     }
@@ -214,7 +213,7 @@ class Game {
     this.updateButtonStates();
     document.getElementById('turnIndicator').textContent = `It's now ${this.currentTeam}'s turn.`;
   
-    if (this.currentTeam === 'uk') {
+    if (this.currentTeam === 'uk' && AImode) {
       setTimeout(() =>
       this.performAITurn(), 1000);
     }
