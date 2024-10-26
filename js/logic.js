@@ -151,7 +151,7 @@ class Game {
                 movedUnitElement.classList.remove('fade-in');
               }, 500); // Match the duration of the CSS transition
             }
-            
+
             this.switchTurn();
           }, 500); // Match the duration of fade-out
         }

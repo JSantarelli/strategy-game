@@ -10,7 +10,8 @@ const availableUnits = [
     cost: 10000,          
     type: "aircraft",
     team: "arg",
-    imgPath: 'arg-dagger.png'
+    imgPath: 'arg-dagger.png',
+    span: { columns: 1, rows: 1 }
   },
   {
     id: 'arg02',
@@ -23,7 +24,8 @@ const availableUnits = [
     cost: 20000000,           
     type: "aircraft",
     team: "arg",
-    imgPath: 'arg-chinook.png'
+    imgPath: 'arg-chinook.png',
+    span: { columns: 1, rows: 1 }
   },
   {
     id: 'arg03',
@@ -36,7 +38,8 @@ const availableUnits = [
     cost: 8000000,            
     type: "aircraft",
     team: "arg",
-    imgPath: 'arg-pucara.png'
+    imgPath: 'arg-pucara.png',
+    span: { columns: 1, rows: 1 }
   },
   {
     id: 'arg04',
@@ -49,7 +52,8 @@ const availableUnits = [
     cost: 15000000,            
     type: "aircraft",
     team: "arg",
-    imgPath: 'arg-etendard.png'
+    imgPath: 'arg-etendard.png',
+    span: { columns: 1, rows: 1 }
   },
   {
     id: 'arg05',
@@ -62,7 +66,8 @@ const availableUnits = [
     cost: 60000000,            
     type: "aircraft carrier",
     team: "arg",
-    imgPath: 'arg-ara-25.png'
+    imgPath: 'arg-ara-25.png',
+    span: { columns: 2, rows: 2 }
   },
   {
     id: 'arg06',
@@ -75,7 +80,8 @@ const availableUnits = [
     shield: 20,          
     type: "infantry",
     team: "arg",
-    imgPath: 'arg-soldados.png'
+    imgPath: 'arg-soldados.png',
+    span: { columns: 1, rows: 1 }
   },
 
   // UK
@@ -90,7 +96,8 @@ const availableUnits = [
     cost: 25000000,           
     type: "aircraft",
     team: "uk",
-    imgPath: 'uk-avro.png'
+    imgPath: 'uk-avro.png',
+    span: { columns: 1, rows: 1 }
   },
   {
     id: 'uk02',
@@ -103,7 +110,8 @@ const availableUnits = [
     cost: 20000000,           
     type: "aircraft",
     team: "uk",
-    imgPath: 'uk-harrier.png'
+    imgPath: 'uk-harrier.png',
+    span: { columns: 1, rows: 1 }
   },
   {
     id: 'uk03',
@@ -116,7 +124,8 @@ const availableUnits = [
     cost: 12000000,           
     type: "aircraft",
     team: "uk",
-    imgPath: "uk-sea-king.png"
+    imgPath: "uk-sea-king.png",
+    span: { columns: 1, rows: 1 }
   },
   {
     id: 'uk04',
@@ -129,7 +138,8 @@ const availableUnits = [
     cost: 15000000,           
     type: "aircraft",
     team: "uk",
-    imgPath: 'uk-nimrod.png'
+    imgPath: 'uk-nimrod.png',
+    span: { columns: 1, rows: 1 }
   },
   {
     id: 'uk05',
@@ -142,7 +152,8 @@ const availableUnits = [
     cost: 80000000,            
     type: "aircraft carrier",
     team: "uk",
-    imgPath: 'uk-invincible.png'
+    imgPath: 'uk-invincible.png',
+    span: { columns: 2, rows: 2 }
   },
   {
     id: 'uk06',
@@ -155,12 +166,13 @@ const availableUnits = [
     cost: 20000,            
     type: "infantry",
     team: "uk",
-    imgPath: 'uk-soldiers.png'
+    imgPath: 'uk-soldiers.png',
+    span: { columns: 1, rows: 1 }
   }
 ];
 
 class Unit {
-    constructor(id, name, firePower, fireScope, displacement, stamina, shield, cost, type, team, imgPath) {
+    constructor(id, name, firePower, fireScope, displacement, stamina, shield, cost, type, team, imgPath, span) {
       this.id = id;
       this.name = name;
       this.firePower = firePower;
@@ -173,6 +185,7 @@ class Unit {
       this.state = 'idle'; 
       this.team = team;
       this.imgPath = imgPath;
+      this.span = span;
     }
   
     takeDamage(damage) {

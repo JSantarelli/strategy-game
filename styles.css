@@ -64,10 +64,8 @@ body {
 }
 
 .unit {
-  /* position: absolute; */
   height: min-content;
   top: 10px;
-  background-color: #ad9864;
   color: #fff;
   padding: 4px;
   border-radius: 4px;
@@ -76,7 +74,6 @@ body {
 }
 
 .arg {
-  /* background-color: lightblue; */
   color: #fff;
   padding: 4px;
   border-radius: 4px;
@@ -84,7 +81,6 @@ body {
 }
 
 .uk {
-  /* background-color: darkblue; */
   color: #fff;
   padding: 4px;
   border-radius: 4px;
@@ -96,18 +92,18 @@ body {
 }
 
 .destroyed {
-  opacity: .25;
-  mix-blend-mode: color-burn;
+  opacity: .1;
+  mix-blend-mode: multiply;
 }
 
 /* Moves */
 .fade-in {
   opacity: 0;
-  animation: fadeIn 1s forwards;
+  animation: fadeIn .5s forwards;
 }
 
 .fade-out {
-  animation: fadeOut 1s forwards;
+  animation: fadeOut .5s forwards;
 }
 
 @keyframes fadeIn {
