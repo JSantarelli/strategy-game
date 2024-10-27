@@ -6,7 +6,8 @@ const availableUnits = [
     fireScope: 6,       
     displacement: 7,    
     stamina: 50,         
-    shield: 30,          
+    shield: 30,         
+    totalStamina: 100,
     cost: 10000,          
     type: "aircraft",
     team: "arg",
@@ -21,6 +22,7 @@ const availableUnits = [
     displacement: 4,    
     stamina: 50,         
     shield: 30,          
+    totalStamina: 100,
     cost: 20000000,           
     type: "aircraft",
     team: "arg",
@@ -35,6 +37,7 @@ const availableUnits = [
     displacement: 5,    
     stamina: 60,         
     shield: 20,          
+    totalStamina: 100,
     cost: 8000000,            
     type: "aircraft",
     team: "arg",
@@ -49,6 +52,7 @@ const availableUnits = [
     displacement: 6,    
     stamina: 50,         
     shield: 40,          
+    totalStamina: 100,
     cost: 15000000,            
     type: "aircraft",
     team: "arg",
@@ -63,6 +67,7 @@ const availableUnits = [
     displacement: 2,    
     stamina: 180,       
     shield: 20,         
+    totalStamina: 100,
     cost: 60000000,            
     type: "aircraft carrier",
     team: "arg",
@@ -78,6 +83,7 @@ const availableUnits = [
     stamina: 40, 
     cost: 10000, 
     shield: 20,          
+    totalStamina: 100,
     type: "infantry",
     team: "arg",
     imgPath: 'arg-soldados.png',
@@ -93,6 +99,7 @@ const availableUnits = [
     displacement: 4,    
     stamina: 70,         
     shield: 50,          
+    totalStamina: 100,
     cost: 25000000,           
     type: "aircraft",
     team: "uk",
@@ -107,6 +114,7 @@ const availableUnits = [
     displacement: 6,    
     stamina: 60,         
     shield: 50,          
+    totalStamina: 100,
     cost: 20000000,           
     type: "aircraft",
     team: "uk",
@@ -121,6 +129,7 @@ const availableUnits = [
     displacement: 5,    
     stamina: 60,         
     shield: 40,          
+    totalStamina: 100,
     cost: 12000000,           
     type: "aircraft",
     team: "uk",
@@ -135,6 +144,7 @@ const availableUnits = [
     displacement: 6,    
     stamina: 60,         
     shield: 40,          
+    totalStamina: 100,
     cost: 15000000,           
     type: "aircraft",
     team: "uk",
@@ -149,6 +159,7 @@ const availableUnits = [
     displacement: 2,    
     stamina: 200,       
     shield: 250,         
+    totalStamina: 100,
     cost: 80000000,            
     type: "aircraft carrier",
     team: "uk",
@@ -163,6 +174,7 @@ const availableUnits = [
     displacement: 1,
     stamina: 50,
     shield: 30,    
+    totalStamina: 100,
     cost: 20000,            
     type: "infantry",
     team: "uk",
@@ -172,7 +184,7 @@ const availableUnits = [
 ];
 
 class Unit {
-    constructor(id, name, firePower, fireScope, displacement, stamina, shield, cost, type, team, imgPath, span) {
+    constructor(id, name, firePower, fireScope, displacement, stamina, shield, totalStamina, cost, type, team, imgPath, span) {
       this.id = id;
       this.name = name;
       this.firePower = firePower;
@@ -180,6 +192,7 @@ class Unit {
       this.displacement = displacement;
       this.stamina = stamina;
       this.shield = shield;
+      this.totalStamina = stamina;
       this.cost = cost;
       this.type = type;
       this.state = 'idle'; 
@@ -189,15 +202,16 @@ class Unit {
     }
   
     takeDamage(damage) {
-      console.log(damage);
       const effectiveDamage = Math.max(0, damage - this.shield);
       this.stamina -= effectiveDamage;
+
+      // Ensure stamina doesn't go below zero
       if (this.stamina <= 0) {
         this.stamina = 0;
         this.state = 'destroyed';
       }
     }
-  
+
     isDestroyed() {
       return this.state === 'destroyed';
     }

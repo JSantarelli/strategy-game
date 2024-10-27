@@ -162,20 +162,24 @@ class Board {
   
         if (unit) {
           const unitImage = document.createElement('img');
-  
+          const unitBar = document.createElement('span');
+
           unitImage.id = `unit-${unit.id}`;
           unitImage.className = `unit ${unit.state} ${unit.team} fade-in`;
           unitImage.src = `./assets/img/units/${unit.imgPath}`;
-          unitImage.innerText = unit.stamina;
+          unitBar.classList.add('stamina__bar');
+          unitBar.innerText = unit.stamina;
 
           // Check if the unit has the span property and apply styles
           if (unit.span) {
-            console.log(unit.span);
             cell.style.gridColumn = `span ${unit.span.columns}`;
             cell.style.gridRow = `span ${unit.span.rows}`;
           }
 
           cell.appendChild(unitImage);
+          cell.appendChild(unitBar);
+          this.updateStaminaBar(unit, unitBar);
+          this.applyHitEffect(unit, unitImage);
         }
   
         cell.addEventListener('click', () => this.onCellClick(x, y));
@@ -192,9 +196,49 @@ class Board {
   
     function handleAddUnit(unitType) {
       game.enableAddMode(unitType);
+    };
+  }
+
+  updateStaminaBar(unit, unitBar) {
+    const staminaPercentage = (unit.stamina / unit.totalStamina) * 100;
+
+    unitBar.innerText = unit.stamina;
+    if (staminaPercentage >= 75) {
+      unitBar.style.backgroundColor = 'greenyellow';
+    } else if (staminaPercentage >= 50) {
+      unitBar.style.backgroundColor = 'yellow';
+    } else if (staminaPercentage >= 25) {
+      unitBar.style.backgroundColor = 'orangred';
+    } else {
+      unitBar.style.backgroundColor = 'red';
     }
   }
-  
+
+  saveUnitState(unit) {
+    const unitState = {
+      id: unit.id,
+      stamina: unit.stamina,
+      prevStamina: unit.totalStamina,
+    };
+    localStorage.setItem(`unit-${unit.id}`, JSON.stringify(unitState));
+  }
+
+  loadUnitState(unitId) {
+    const unitState = JSON.parse(localStorage.getItem(`unit-${unitId}`));
+    return unitState;
+  }
+
+  applyHitEffect(unit, unitImage) {
+    const unitState = this.loadUnitState(unit.id);
+    if (unitState && unitState.prevStamina !== unit.stamina) {
+       unitImage.classList.add('hit-effect');
+       setTimeout(() => {
+         unitImage.classList.remove('hit-effect');
+       }, 600);
+    }
+    this.saveUnitState(unit);
+  }
+
   onCellClick(x, y) {
     if (game.addMode && game.unitToAdd) {
       if (this.placeUnit(game.unitToAdd, x, y)) {

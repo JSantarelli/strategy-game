@@ -36,6 +36,7 @@ class Game {
         unitConfig.displacement,
         unitConfig.stamina,
         unitConfig.shield,
+        unitConfig.totalStamina,
         unitConfig.cost,
         unitConfig.type,
         unitConfig.team,
@@ -47,7 +48,6 @@ class Game {
 
   selectUnit(unit) {
     if (unit.isDestroyed() || unit.team !== this.currentTeam) return;
-    console.log('selected!')
 
     if (this.selectedUnit === unit) {
       this.selectedUnit.state = 'idle';
@@ -140,17 +140,6 @@ class Game {
             this.selectedUnit = null;
             this.board.renderBoard('board');
             this.updateButtonStates();
-  
-            // const movedUnitElement = this.getUnitElement(selectedUnit);
-            // if (movedUnitElement) {
-            //   movedUnitElement.classList.remove('fade-out');
-            //   movedUnitElement.classList.add('fade-in');
-    
-            //   setTimeout(() => {
-            //     movedUnitElement.classList.remove('fade-in');
-            //   }, 500);
-            // }
-
             this.switchTurn();
           }, 1000);
         }

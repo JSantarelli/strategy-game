@@ -59,6 +59,19 @@ body {
   width: 100%;
 }
 
+
+.cell > span.stamina__bar {
+  color: #a1a1a1;
+  height: min-content;
+  width: 90%;
+  text-align: center;
+  font-size: 6px;
+  bottom: 10px;
+  position: absolute;
+  border-radius: 2px;
+  background-color: inherit;
+}
+
 .water {
   background: rgba(58, 214, 252, 0.5);
 }
@@ -68,12 +81,6 @@ body {
 }
 
 .unit {
-  height: min-content;
-  top: 10px;
-  color: #fff;
-  padding: 4px;
-  border-radius: 4px;
-  text-align: center;
   transition: opacity 1s ease;
 }
 
@@ -98,6 +105,10 @@ body {
 .destroyed {
   opacity: 0.25!important;
   /* mix-blend-mode: multiply; */
+}
+
+.destroyed ~ .stamina__bar {
+  background-color: lightgrey!important;
 }
 
 /* Moves */
@@ -127,4 +138,23 @@ body {
   to {
     opacity: 0;
   }
+}
+
+/* Apply the blink effect to units when they take damage */
+@keyframes blink-red {
+  0% {
+    background-color: rgba(255, 0, 0, 0.5);
+  }
+  50% {
+    background-color: rgba(255, 0, 0, 0);
+  }
+  100% {
+    background-color: rgba(255, 0, 0, 0.5);
+  }
+}
+
+.hit-effect {
+  background-color: darkred;
+  border: solid 2px darkred;
+  mix-blend-mode: hue;
 }
