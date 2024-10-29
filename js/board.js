@@ -141,7 +141,7 @@ class Board {
   getDistance(x1, y1, x2, y2) {
     return Math.abs(x1 - x2) + Math.abs(y1 - y2);
   }
-
+  
   renderBoard(containerId) {
     const container = document.getElementById(containerId);
     container.innerHTML = '';
@@ -149,7 +149,10 @@ class Board {
     container.style.display = 'grid';
     container.style.gridTemplateColumns = `repeat(${this.width}, 1fr)`;
     container.style.gridTemplateRows = `repeat(${this.height}, 1fr)`;
-  
+
+     // Clear any previous move highlights to start fresh
+    this.clearMoveScope();
+
     for (let y = 0; y < this.height; y++) {
       for (let x = 0; x < this.width; x++) {
         const cell = document.createElement('div');
@@ -163,23 +166,35 @@ class Board {
         if (unit) {
           const unitImage = document.createElement('img');
           const unitBar = document.createElement('span');
-
+  
           unitImage.id = `unit-${unit.id}`;
           unitImage.className = `unit ${unit.state} ${unit.team} fade-in`;
           unitImage.src = `./assets/img/units/${unit.imgPath}`;
           unitBar.classList.add('stamina__bar');
           unitBar.innerText = unit.stamina;
-
-          // Check if the unit has the span property and apply styles
+  
           if (unit.span) {
             cell.style.gridColumn = `span ${unit.span.columns}`;
             cell.style.gridRow = `span ${unit.span.rows}`;
           }
-
+  
           cell.appendChild(unitImage);
           cell.appendChild(unitBar);
           this.updateStaminaBar(unit, unitBar);
           this.applyHitEffect(unit, unitImage);
+  
+          if (unit.team === this.currentTeam) {
+            game.selectUnit(unit);
+            console.log(unit.team)
+            if (game.selectedUnit) {
+              const { x: currentX, y: currentY } = this.findUnitPosition(game.selectedUnit);
+              const possibleMoves = this.calculateMoveScope(game.selectedUnit, currentX, currentY);
+              this.highlightMoveScope(possibleMoves);
+            } else {
+              this.clearMoveScope();
+            }
+            game.updateButtonStates();
+          }
         }
   
         cell.addEventListener('click', () => this.onCellClick(x, y));
@@ -196,8 +211,20 @@ class Board {
   
     function handleAddUnit(unitType) {
       game.enableAddMode(unitType);
-    };
+    }
   }
+  
+  
+  // Function to clear previous highlights
+  isCurrentTurnUnit(unit) {
+    return unit.team === this.currentTeam;
+  }
+
+  clearMoveScope() {
+    document.querySelectorAll('.highlighted-move').forEach(cell => {
+      cell.classList.remove('highlighted-move');
+    });
+  }  
 
   updateStaminaBar(unit, unitBar) {
     const staminaPercentage = (unit.stamina / unit.totalStamina) * 100;
@@ -254,5 +281,58 @@ class Board {
       }
     }
     this.renderBoard('board');
+  }
+
+// Hightlight scope
+calculateMoveScope(unit, currentX, currentY) {
+  const possibleMoves = [];
+  const displacement = unit.displacement;
+
+  for (let dx = -displacement; dx <= displacement; dx++) {
+    for (let dy = -displacement; dy <= displacement; dy++) {
+      if (Math.abs(dx) + Math.abs(dy) <= displacement) {
+        const newX = currentX + dx;
+        const newY = currentY + dy;
+        possibleMoves.push({ x: newX, y: newY });
+      }
+    }
+  }
+
+  localStorage.setItem('highlightedCells', JSON.stringify(possibleMoves));
+  console.log(possibleMoves);
+  return possibleMoves;
+}
+
+highlightMoveScope(possibleMoves) {
+  const cells = JSON.parse(localStorage.getItem('highlightedCells')) || [];
+  
+  cells.forEach(move => {
+    const availableCell = document.querySelector(`.cell[data-x="${move.x}"][data-y="${move.y}"]`);
+    if (availableCell) {
+      availableCell.classList.add('highlight');
+    }
+  });
+}
+
+  clearMoveScope() {
+    const highlightedCells = document.querySelectorAll('.highlight');
+    highlightedCells.forEach(cell => {
+      cell.classList.remove('highlight');
+    });
+  }
+  
+  isValidMove(x, y) {
+    return (
+      x >= 0 &&
+      y >= 0 &&
+      x < this.width &&
+      y < this.height &&
+      !this.getUnitAt(x, y)
+    );
+  }
+
+  onUnitSelect(unit, currentX, currentY) {
+    const possibleMoves = this.calculateMoveScope(unit, currentX, currentY);
+    this.highlightMoveScope(possibleMoves);
   }
 }

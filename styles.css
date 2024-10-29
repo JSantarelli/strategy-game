@@ -49,10 +49,6 @@ body {
   opacity: 1;
 }
 
-.cell:hover {
-  border: dashed 2px orange;
-}
-
 .cell > img {
   object-fit: cover;
   /* height: 100%; */
@@ -153,8 +149,19 @@ body {
   }
 }
 
+/* States */
 .hit-effect {
   background-color: darkred;
   border: solid 2px darkred;
   mix-blend-mode: hue;
 }
+
+.highlight {
+    mix-blend-mode: multiply;
+    background-color: yellow;
+    opacity: .5;
+  }
+
+.highlight:hover {
+    border: 2px solid orange; /* Optional: a border for clarity */
+  }

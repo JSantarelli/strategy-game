@@ -10,7 +10,6 @@ class Game {
 
     this.moveButton.addEventListener('click', () => this.handleMove());
     this.attackButton.addEventListener('click', () => this.handleAttack());
-
     this.updateButtonStates();
   }
 
@@ -48,14 +47,16 @@ class Game {
 
   selectUnit(unit) {
     if (unit.isDestroyed() || unit.team !== this.currentTeam) return;
-
+    
     if (this.selectedUnit === unit) {
       this.selectedUnit.state = 'idle';
       this.selectedUnit = null;
     } else {
+
       if (this.selectedUnit) {
         this.selectedUnit.state = 'idle';
       }
+      
       this.selectedUnit = unit;
       this.selectedUnit.state = 'selected';
     }
@@ -123,7 +124,7 @@ class Game {
   getUnitElement(unit) {
     return document.getElementById(`unit-${unit.id}`);
   }
-  
+
   moveSelectedUnit(x, y) {
     if (this.selectedUnit && this.selectedUnit.state === 'selected') {
       const { x: currentX, y: currentY } = this.board.findUnitPosition(this.selectedUnit);
@@ -146,7 +147,7 @@ class Game {
       }
     }
   }  
-
+  
   findTarget() {
     if (!this.selectedUnit) return null;
 
@@ -238,7 +239,7 @@ class Game {
           }
         }
       }
-      this.switchTurn(); // Switch turn immediately if no action was taken
+      this.switchTurn(); 
     }  
   }
   
