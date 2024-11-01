@@ -10,7 +10,6 @@
         <script src="./js/include.js"></script>
     </head>
     <body>
-        
         <section id="home">
             <label for="gameMode">Choose Game Mode:</label>
             <select id="gameMode">
@@ -19,42 +18,42 @@
             </select>
             <button onclick="startGame()">Start Game</button>
         </section>
-        
         <section id="game">
             <img src="./assets/img/malvinas.jpg" class="bg__map" alt="">
             <div id="board"></div>
             <!-- Componentizar -->
-            <div class="panel--bottom">
-                    <button onclick="exitGame()">Exit Game</button>
-                    <fieldset id="arg">
-                        <legend>Argentina</legend>
-                        <div id="budgetIndicator"></div>
-                        <div id="budgetRemain"></div>
-                        <div class="unit-option" data-unit-type="Mirage V Dagger">Mirage V Dagger</div>
-                        <div class="unit-option" data-unit-type="Chinook CH-47">Chinook CH-47</div>
-                        <div class="unit-option" data-unit-type="ARA 25 DE MAYO">ARA 25 DE MAYO</div>
-                        <div class="unit-option" data-unit-type="FMA IA 58 Pucará">FMA IA 58 Pucará</div>
-                        <div class="unit-option" data-unit-type="Super Etendard">Super Etendard</div>
-                        <div class="unit-option" data-unit-type="Soldado FA">Soldado FA</div>
-                    </fieldset>
-                    <fieldset id="uk">
-                        <legend>United Kingdom</legend>
-                        <!-- <div id="budgetIndicator"></div> -->
-                        <div class="unit-option" data-unit-type="Sea Harrier">Sea Harrier</div>
-                        <div class="unit-option" data-unit-type="Sea King">Sea King</div>
-                        <div class="unit-option" data-unit-type="Avro Vulcan">Avro Vulcan</div>
-                        <div class="unit-option" data-unit-type="Nimrod MR2">Nimrod MR2</div>
-                        <div class="unit-option" data-unit-type="HMS Invincible">HMS Invincible</div>
-                        <div class="unit-option" data-unit-type="SAS Soldier">SAS Soldier</div>
-                    </fieldset>
-                </div>
+            <div class="panel__p1">
+                <button onclick="exitGame()">Exit Game</button>
+                <fieldset id="arg">
+                    <legend>Argentina</legend>
+                    <div id="budgetIndicator"></div>
+                    <div id="budgetRemain"></div>
+                    <div class="unit-option" data-unit-type="Mirage V Dagger">Mirage V Dagger</div>
+                    <div class="unit-option" data-unit-type="Chinook CH-47">Chinook CH-47</div>
+                    <div class="unit-option" data-unit-type="ARA 25 DE MAYO">ARA 25 DE MAYO</div>
+                    <div class="unit-option" data-unit-type="FMA IA 58 Pucará">FMA IA 58 Pucará</div>
+                    <div class="unit-option" data-unit-type="Super Etendard">Super Etendard</div>
+                    <div class="unit-option" data-unit-type="Soldado FA">Soldado FA</div>
+                </fieldset>
+            </div>
+            <div class="panel__p2">
+                <fieldset id="uk">
+                    <legend>United Kingdom</legend>
+                    <!-- <div id="budgetIndicator"></div> -->
+                    <div class="unit-option" data-unit-type="Sea Harrier">Sea Harrier</div>
+                    <div class="unit-option" data-unit-type="Sea King">Sea King</div>
+                    <div class="unit-option" data-unit-type="Avro Vulcan">Avro Vulcan</div>
+                    <div class="unit-option" data-unit-type="Nimrod MR2">Nimrod MR2</div>
+                    <div class="unit-option" data-unit-type="HMS Invincible">HMS Invincible</div>
+                    <div class="unit-option" data-unit-type="SAS Soldier">SAS Soldier</div>
+                </fieldset>
                 <span class="controls">
                     <button id="moveButton" disabled>Move</button>
                     <button id="attackButton" disabled>Attack</button>
                     <div id="turnIndicator"></div>
                 </span>
+            </div>
         </section>
-
         <script src="/js/board.js"></script>
         <script src="/js/logic.js"></script>
         <script src="/js/units.js"></script>
