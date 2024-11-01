@@ -156,12 +156,8 @@ body {
   mix-blend-mode: hue;
 }
 
-.highlight {
-    mix-blend-mode: multiply;
-    background-color: yellow;
-    opacity: .5;
-  }
-
 .highlight:hover {
+  background-color: yellow;
+  opacity: .5;
     border: 2px solid orange; /* Optional: a border for clarity */
   }
