@@ -1,14 +1,14 @@
 const predefinedGrid = [
   ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
   ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
-  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'land', 'land', 'water', 'water', 'water', 'land', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
-  ['water', 'water', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water'],
+  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'land', 'water', 'land', 'land', 'water', 'water', 'water', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water', 'water'],
+  ['water', 'water', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water'],
   ['water', 'water', 'water', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water'],
-  ['water', 'water', 'land', 'land', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water'],
-  ['water', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water', 'water'],
-  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
-  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
-  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+  ['water', 'water', 'land', 'land', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'water'],
+  ['water', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water', 'water'],
+  ['water', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'land', 'water', 'land', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
   ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
   ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water']
 ];
@@ -30,13 +30,14 @@ class Board {
     return predefinedGrid.map(row => 
       row.map(cell => ({
         unit: null,
-        terrain: cell
+        terrain: cell                    
       }))
     );
   }
 
   showBudget() {
-    document.getElementById('budgetIndicator').textContent = `Initial budget: ${this.budget[this.currentTeam]}`;
+    document.getElementById('argBudget').textContent = `Initial budget: ${this.budget[this.currentTeam]}`;
+    document.getElementById('ukBudget').textContent = `Initial budget: ${this.budget[this.currentTeam]}`;
   }
 
   placeUnit(unit, x, y) {
@@ -44,7 +45,6 @@ class Board {
 
     if (this.isWithinBounds(x, y)) {
       const cell = this.grid[y][x];
-  
       if (this.isUnitTeam(unit)) {
         if (this.canAffordUnit(unit)) {
           if (this.isTerrainCompatible(unit, cell.terrain)) {
@@ -67,6 +67,11 @@ class Board {
     return false;
   }
   
+  // Check if a unit is from a particular team
+  isUnitTeam(unit) {
+    return unit.team === this.currentTeam;
+  }
+    
   moveUnit(unit, newX, newY) {
     const { x, y } = this.findUnitPosition(unit);
     if (x !== -1 && this.isWithinBounds(newX, newY)) {
@@ -76,7 +81,7 @@ class Board {
         this.grid[y][x].unit = null; 
         targetCell.unit = unit;       
       } else {
-        console.log(`Cannot move unit to incompatible terrain or occupied cell.`);
+        console.log('Cannot move unit to incompatible terrain or occupied cell.');
       }
     }
   }
@@ -104,7 +109,6 @@ class Board {
     return x >= 0 && y >= 0 && x < this.width && y < this.height;
   }
     
-  // Check if the team has enough budget to afford the unit
   isUnitTeam(unit) {
     if (unit.team === this.currentTeam) return true;
   }
@@ -122,14 +126,17 @@ class Board {
   }
 
   updateBudgetDisplay() {
-    const budgetDisplayElement = document.getElementById('budgetIndicator');
-    budgetDisplayElement.innerText = `Argentina: ${this.budget.arg}`;
+    const ArgBudgetDisplay = document.getElementById('argBudget');
+    const UkBudgetDisplay = document.getElementById('ukBudget');
+    ArgBudgetDisplay.innerText = `Argentina: ${this.budget.arg}`;
+    UkBudgetDisplay.innerText = `UK: ${this.budget.uk}`;
   }
 
   isTerrainCompatible(unit, terrain) {
     if (unit.type === 'aircraft') return true;
     if (unit.type === 'aircraft carrier' && terrain === 'water') return true;
     if (unit.type === 'infantry' && terrain === 'land') return true;
+    if (unit.type === 'building' && terrain === 'land') return true;
 
     return false;
   }
@@ -146,7 +153,6 @@ class Board {
     container.style.gridTemplateColumns = `repeat(${this.width}, 1fr)`;
     container.style.gridTemplateRows = `repeat(${this.height}, 1fr)`;
 
-     // Clear any previous move highlights to start fresh
     this.clearMoveScope();
 
     for (let y = 0; y < this.height; y++) {
@@ -181,11 +187,10 @@ class Board {
   
           if (unit.team === this.currentTeam) {
             game.selectUnit(unit);
-            console.log(unit.team)
             if (game.selectedUnit) {
               const { x: currentX, y: currentY } = this.findUnitPosition(game.selectedUnit);
               const possibleMoves = this.calculateMoveScope(game.selectedUnit, currentX, currentY);
-              this.highlightMoveScope(possibleMoves);
+              // this.highlightMoveScope(possibleMoves);
             } else {
               this.clearMoveScope();
             }
@@ -209,18 +214,6 @@ class Board {
       game.enableAddMode(unitType);
     }
   }
-  
-  
-  // Function to clear previous highlights
-  isCurrentTurnUnit(unit) {
-    return unit.team === this.currentTeam;
-  }
-
-  clearMoveScope() {
-    document.querySelectorAll('.highlighted-move').forEach(cell => {
-      cell.classList.remove('highlighted-move');
-    });
-  }  
 
   updateStaminaBar(unit, unitBar) {
     const staminaPercentage = (unit.stamina / unit.totalStamina) * 100;

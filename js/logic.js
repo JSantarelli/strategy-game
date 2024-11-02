@@ -39,7 +39,8 @@ class Game {
         unitConfig.cost,
         unitConfig.type,
         unitConfig.team,
-        unitConfig.imgPath
+        unitConfig.imgPath,
+        unitConfig.span
       );
     }
       return null;
@@ -61,35 +62,6 @@ class Game {
       this.selectedUnit.state = 'selected';
     }
     this.updateButtonStates();
-  }
-
-  placeUnitOnBoard(event) {
-    if (!this.selectedUnitType) return; 
-
-    const { x, y } = this.board.getCoordinatesFromClick(event);
-
-    if (!this.board.getUnitAt(x, y)) {
-      const newUnit = new Unit(
-        this.selectedUnitType.name,
-        this.selectedUnitType.firePower,
-        this.selectedUnitType.fireScope,
-        this.selectedUnitType.displacement,
-        this.selectedUnitType.stamina,
-        this.selectedUnitType.shield,
-        this.selectedUnitType.cost,
-        this.selectedUnitType.type,
-        this.selectedUnitType.team,
-        this.selectedUnitType.imgPath,
-        this.selectedUnitType.span,
-      );
-
-      this.board.placeUnit(newUnit, x, y);
-      this.board.renderBoard('board');
-      this.selectedUnitType = null;
-      this.switchTurn();
-    } else {
-      alert('That cell is already occupied.');
-    }
   }
 
   updateButtonStates() {
@@ -178,12 +150,16 @@ class Game {
       const distance = this.board.getDistance(originX, originY, targetX, targetY);
 
       if (distance <= this.selectedUnit.fireScope) {
+        if (target.type === 'building') {
+          target.changeTeam();
+          target.onAttacked(this.selectedUnit);
+          console.log(`Building ${target.name} has been taken over by ${this.selectedUnit.team}`);
+        } else {
         target.takeDamage(this.selectedUnit.firePower);
+      }
         this.selectedUnit.state = 'idle';
         this.selectedUnit = null;
-
         this.board.renderBoard('board');
-
         this.switchTurn();
       }
     }

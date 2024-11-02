@@ -2,12 +2,13 @@ body {
   font-size: 10px;
   font-family: Inter, sans-serif;
   height: 100vh;
-
+  margin: 0;
 }
 
 #board {
   width: 100vw;
   height: 100vh;
+  position: relative;
 }
 
 #game {
@@ -26,7 +27,6 @@ body {
   background-color: rgba(255, 255, 255, 0.5);
   box-shadow: 0px 0px 2px 2px rgba(182, 135, 88, 0.5);
   padding: 2rem;
-  height: 100vh;
   width: var(--panel__width);
 }
 
@@ -36,7 +36,6 @@ body {
   background-color: rgba(255, 255, 255, 0.5);
   box-shadow: 0px 0px 2px 2px rgba(182, 135, 88, 0.5);
   padding: 2rem;
-  height: 100vh;
   width: var(--panel__width);
   right: 0!important;
 }
@@ -49,9 +48,9 @@ fieldset {
   position: absolute;
   top: 0%;
   left: 0;
-  object-fit: cover;
+  /* object-fit: cover; */
   width: 100%;
-  /* height: 100%; */
+  height: 100%;
 }
 
 .row {

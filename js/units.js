@@ -61,7 +61,7 @@ const availableUnits = [
   },
   {
     id: 'arg05',
-    name: "ARA 25 DE MAYO",
+    name: "ARA 25 de Mayo",
     firePower: 30,      
     fireScope: 7,       
     displacement: 2,    
@@ -175,7 +175,7 @@ const availableUnits = [
     stamina: 50,
     shield: 30,    
     totalStamina: 100,
-    cost: 20000,            
+    cost: 20000,
     type: "infantry",
     team: "uk",
     imgPath: 'uk-soldiers.png',
@@ -202,6 +202,9 @@ class Unit {
     }
   
     takeDamage(damage) {
+      if (this.type === 'building') {
+        return; // Prevent any damage
+    }
       const effectiveDamage = Math.max(0, damage - this.shield);
       this.stamina -= effectiveDamage;
 
@@ -216,3 +219,36 @@ class Unit {
       return this.state === 'destroyed';
     }
   }
+
+  class Building extends Unit {
+    constructor(id, name, team, imgPath, span) {
+      super(id, name, 0, 0, 0, 0, 0, 0, 0, "building", team, imgPath, span);
+      this.isDestructible = false;
+      this.isInventoryAddable = false;
+    }
+  
+    // Override any behavior related to destruction
+    canBeDestroyed() {
+      return this.isDestructible; 
+    }
+
+    onAttacked(attacker) {
+      if (attacker.team !== this.team) {
+        this.changeTeam();
+      }
+    }
+  
+    // Change the team to the enemy and update appearance
+    changeTeam() {
+      const enemyTeam = this.team === 'arg' ? 'uk' : 'arg'; // Determine the enemy team
+      this.team = enemyTeam;
+      this.updateAppearance(); // Call to update the image path
+      console.log(`Building ${this.id} has switched to team ${enemyTeam}`);
+    }
+  
+    // Method to update the appearance based on the current team
+    updateAppearance() {
+      this.imgPath = `${this.team}-flag.png`; // Update image path dynamically based on the team
+    }
+  }
+  
