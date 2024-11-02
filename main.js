@@ -1,22 +1,45 @@
 const board = new Board(24, 12);
 const game = new Game(board);
 
-const ukSoldier1 = new Unit('uk010', 'SAS Soldier', 50, 2, 1, 40, 30, 70, 20000, 'infantry', 'uk', 'uk-soldiers.png', { columns: 1, rows: 1 });    
-const ukSoldier2 = new Unit('uk011', 'SAS Soldier', 50, 4, 1, 40, 30, 70, 20000, 'infantry', 'uk', 'uk-soldiers.png', { columns: 1, rows: 1 });    
-const ukSoldier3 = new Unit('uk012', 'SAS Soldier', 50, 4, 1, 40, 30, 70, 20000, 'infantry', 'uk', 'uk-soldiers.png', { columns: 1, rows: 1 });    
-const ukHarrier4 = new Unit('uk013', 'Sea Harrier', 80, 7, 6, 40, 30, 70, 20000, 'aircraft', 'uk', 'uk-harrier.png', { columns: 1, rows: 1 });    
-const ukShip = new Unit('uk014', 'HMS Invincible', 50, 2, 3, 40, 30, 70, 20000, 'aircraft carrier', 'uk', 'uk-invincible.png', { columns: 2, rows: 2 });    
-// const argShip = new Unit('arg05', 'ARA 25 de Mayo', 30, 7, 2, 180, 20, 100, 6000000, 'aircraft carrier', 'arg', 'arg-ara-25.png', { columns: 2, rows: 2 });    
+const flag = game.createUnit("Flag");
+const ukSoldier1 = game.createUnit("SAS Soldier");
+const ukSoldier2 = game.createUnit("SAS Soldier");
+const ukSoldier3 = game.createUnit("SAS Soldier");
+const ukSoldier4 = game.createUnit("SAS Soldier");
+const ukSoldier5 = game.createUnit("SAS Soldier");
+const ukHarrier6 = game.createUnit("Sea Harrier");
+const ukHarrier7 = game.createUnit("Sea Harrier");
+const ukHarrier8 = game.createUnit("Sea Harrier");
+const ukVulcan01 = game.createUnit("Avro Vulcan");
+const ukVulcan02 = game.createUnit("Avro Vulcan");
+const ukKing01 = game.createUnit("Sea King");
+const ukKing02 = game.createUnit("Sea King");
+const ukNimrod01 = game.createUnit("Nimrod MR2");
+const ukNimrod02 = game.createUnit("Nimrod MR2");
+const ukInvincible = game.createUnit("HMS Invincible");
 
-const flag = new Building('flag', 'building', 'uk', 'uk-flag.png', { columns: 1, rows: 1 });
+flag.id = "flag01";
+flag.team = "uk";
+ukSoldier1.id = "uk010";
+ukSoldier2.id = "uk011";
+ukSoldier3.id = "uk012";
 
 board.placeUnit(flag, 20, 5);
+// UK Forces
 board.placeUnit(ukSoldier1, 19, 5);
-board.placeUnit(ukSoldier2, 21, 5);
-board.placeUnit(ukSoldier3, 20, 4);
-board.placeUnit(ukShip, 16, 8);
-// board.placeUnit(argShip, 3, 11);
-board.placeUnit(ukHarrier4, 16, 3);
+board.placeUnit(ukSoldier2, 18, 4);
+board.placeUnit(ukSoldier3, 21, 5);
+board.placeUnit(ukSoldier4, 20, 4);
+board.placeUnit(ukSoldier5, 15, 6);
+board.placeUnit(ukHarrier6, 21, 2);
+board.placeUnit(ukHarrier7, 16, 2);
+board.placeUnit(ukVulcan01, 12, 9);
+board.placeUnit(ukVulcan02, 19, 9);
+board.placeUnit(ukKing01, 19, 2);
+board.placeUnit(ukKing02, 17, 5);
+board.placeUnit(ukNimrod01, 15, 3);
+board.placeUnit(ukNimrod02, 21, 5);
+board.placeUnit(ukInvincible, 19, 7);
 
 board.renderBoard('board');
 board.currentTeam = 'arg';  

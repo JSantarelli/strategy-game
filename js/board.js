@@ -20,7 +20,7 @@ class Board {
     this.grid = this.createGrid();
     this.currentTeam = 'uk'; 
     this.budget = {
-      uk: 30000000, 
+      uk: 300000000, 
       arg: 2500000000 
     };
     this.budgetIndicator = this.showBudget();
@@ -318,10 +318,5 @@ highlightMoveScope(possibleMoves) {
       y < this.height &&
       !this.getUnitAt(x, y)
     );
-  }
-
-  onUnitSelect(unit, currentX, currentY) {
-    const possibleMoves = this.calculateMoveScope(unit, currentX, currentY);
-    this.highlightMoveScope(possibleMoves);
   }
 }

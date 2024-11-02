@@ -25,25 +25,11 @@ class Game {
 
   createUnit(unitType) {
     const unitConfig = availableUnits.find(unit => unit.name === unitType);
-  
+    
     if (unitConfig) {
-      return new Unit(
-        unitConfig.id,
-        unitConfig.name,
-        unitConfig.firePower,
-        unitConfig.fireScope,
-        unitConfig.displacement,
-        unitConfig.stamina,
-        unitConfig.shield,
-        unitConfig.totalStamina,
-        unitConfig.cost,
-        unitConfig.type,
-        unitConfig.team,
-        unitConfig.imgPath,
-        unitConfig.span
-      );
+      return new Unit(unitConfig);  // Pass the entire config object to Unit
     }
-      return null;
+    return null;
   }
 
   selectUnit(unit) {

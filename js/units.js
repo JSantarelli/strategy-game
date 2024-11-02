@@ -1,5 +1,17 @@
 const availableUnits = [
   {
+    id: 'flag01',
+    name: "Flag",
+    imgPath: 'uk-flag.png',
+    type: "building",
+    stamina: 0,
+    totalStamina: 0,
+    cost: 10000,          
+    team: 'uk',
+    span: { columns: 1, rows: 1 }
+  },
+  // ARG
+  {
     id: 'arg01',
     name: "Mirage V Dagger",
     firePower: 70,       
@@ -184,71 +196,50 @@ const availableUnits = [
 ];
 
 class Unit {
-    constructor(id, name, firePower, fireScope, displacement, stamina, shield, totalStamina, cost, type, team, imgPath, span) {
-      this.id = id;
-      this.name = name;
-      this.firePower = firePower;
-      this.fireScope = fireScope;
-      this.displacement = displacement;
-      this.stamina = stamina;
-      this.shield = shield;
-      this.totalStamina = stamina;
-      this.cost = cost;
-      this.type = type;
-      this.state = 'idle'; 
-      this.team = team;
-      this.imgPath = imgPath;
-      this.span = span;
-    }
+  constructor(config) {
+    Object.assign(this, config);  
+  }
   
-    takeDamage(damage) {
-      if (this.type === 'building') {
-        return; // Prevent any damage
-    }
-      const effectiveDamage = Math.max(0, damage - this.shield);
-      this.stamina -= effectiveDamage;
+  takeDamage(damage) {
+    if (this.type === 'building') {
+      return; 
+  }
+    const effectiveDamage = Math.max(0, damage - this.shield);
+    this.stamina -= effectiveDamage;
 
-      // Ensure stamina doesn't go below zero
-      if (this.stamina <= 0) {
-        this.stamina = 0;
-        this.state = 'destroyed';
-      }
-    }
-
-    isDestroyed() {
-      return this.state === 'destroyed';
+    if (this.stamina <= 0) {
+      this.stamina = 0;
+      this.state = 'destroyed';
     }
   }
 
-  class Building extends Unit {
-    constructor(id, name, team, imgPath, span) {
-      super(id, name, 0, 0, 0, 0, 0, 0, 0, "building", team, imgPath, span);
-      this.isDestructible = false;
-      this.isInventoryAddable = false;
-    }
-  
-    // Override any behavior related to destruction
-    canBeDestroyed() {
-      return this.isDestructible; 
-    }
+  isDestroyed() {
+    return this.state === 'destroyed';
+  }
 
-    onAttacked(attacker) {
-      if (attacker.team !== this.team) {
-        this.changeTeam();
-      }
-    }
-  
-    // Change the team to the enemy and update appearance
-    changeTeam() {
-      const enemyTeam = this.team === 'arg' ? 'uk' : 'arg'; // Determine the enemy team
-      this.team = enemyTeam;
-      this.updateAppearance(); // Call to update the image path
-      console.log(`Building ${this.id} has switched to team ${enemyTeam}`);
-    }
-  
-    // Method to update the appearance based on the current team
-    updateAppearance() {
-      this.imgPath = `${this.team}-flag.png`; // Update image path dynamically based on the team
+  onAttacked(attacker) {
+    if (attacker.team !== this.team) {
+      this.changeTeam();
     }
   }
+
+  changeTeam() {
+    const enemyTeam = this.team === 'arg' ? 'uk' : 'arg'; 
+    this.team = enemyTeam;
+    this.updateAppearance(); 
+    console.log(`Building ${this.id} has switched to team ${enemyTeam}`);
+    console.log(this.imgPath);
+  }
+
+  updateAppearance() {
+    this.imgPath = `${this.team}-flag.png`;
+    console.log(`Updated appearance to ${this.imgPath}`);
+  }
+}
   
+class Building extends Unit {
+  constructor(id, name, team, imgPath, span) {
+    super({ id, name, team, imgPath, span }); // Ensure parameters are passed correctly
+    this.type = 'building';
+  }
+}
