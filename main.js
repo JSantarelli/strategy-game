@@ -1,7 +1,9 @@
-const board = new Board(24, 12);
+const board = new Board(36, 18);
 const game = new Game(board);
 
 const flag = game.createUnit("Flag");
+
+// UK Initial units
 const ukSoldier1 = game.createUnit("SAS Soldier");
 const ukSoldier2 = game.createUnit("SAS Soldier");
 const ukSoldier3 = game.createUnit("SAS Soldier");

@@ -1,16 +1,28 @@
 const predefinedGrid = [
-  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
-  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
-  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
-  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'land', 'water', 'land', 'land', 'water', 'water', 'water', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water', 'water'],
-  ['water', 'water', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water'],
-  ['water', 'water', 'water', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water'],
-  ['water', 'water', 'land', 'land', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'water'],
-  ['water', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water', 'water'],
-  ['water', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
-  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'land', 'water', 'land', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
-  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
-  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water']
+  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'land', 'water', 'land', 'land', 'water', 'water', 'water', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'land', 'water', 'land', 'land', 'water', 'water', 'water', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water', 'water'],
+  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'land', 'water', 'land', 'land', 'water', 'water', 'water', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'land', 'water', 'land', 'land', 'water', 'water', 'water', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water', 'water'],
+  ['water', 'water', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water'],
+  ['water', 'water', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water'],
+  ['water', 'water', 'water', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water'],
+  ['water', 'water', 'land', 'land', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water', 'water', 'land', 'land', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'water'],
+  ['water', 'water', 'land', 'land', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water', 'water', 'land', 'land', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'water'],
+  ['water', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water', 'water'],
+  ['water', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water', 'water'],
+  ['water', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+  ['water', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+  ['water', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'land', 'water', 'land', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'land', 'water', 'land', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+  ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water']
 ];
 
 class Board {
@@ -133,6 +145,8 @@ class Board {
   }
 
   isTerrainCompatible(unit, terrain) {
+    if (!unit) return false; // Add this line to handle null unit safely
+
     if (unit.type === 'aircraft') return true;
     if (unit.type === 'aircraft carrier' && terrain === 'water') return true;
     if (unit.type === 'infantry' && terrain === 'land') return true;
@@ -152,9 +166,7 @@ class Board {
     container.style.display = 'grid';
     container.style.gridTemplateColumns = `repeat(${this.width}, 1fr)`;
     container.style.gridTemplateRows = `repeat(${this.height}, 1fr)`;
-
-    this.clearMoveScope();
-
+  
     for (let y = 0; y < this.height; y++) {
       for (let x = 0; x < this.width; x++) {
         const cell = document.createElement('div');
@@ -168,34 +180,31 @@ class Board {
         if (unit) {
           const unitImage = document.createElement('img');
           const unitBar = document.createElement('span');
-  
+
           unitImage.id = `unit-${unit.id}`;
           unitImage.className = `unit ${unit.state} ${unit.team} fade-in`;
           unitImage.src = `./assets/img/units/${unit.imgPath}`;
           unitBar.classList.add('stamina__bar');
           unitBar.innerText = unit.stamina;
-  
+
+          if (game.selectedUnit) {
+            const { x: currentX, y: currentY } = this.findUnitPosition(game.selectedUnit);
+            const possibleMoves = this.calculateMoveScope(game.selectedUnit, currentX, currentY);
+            this.highlightMoveScope(possibleMoves);
+          } else {
+            this.clearMoveScope();
+          }
+
+          // Check if the unit has the span property and apply styles
           if (unit.span) {
             cell.style.gridColumn = `span ${unit.span.columns}`;
             cell.style.gridRow = `span ${unit.span.rows}`;
           }
-  
+
           cell.appendChild(unitImage);
           cell.appendChild(unitBar);
           this.updateStaminaBar(unit, unitBar);
           this.applyHitEffect(unit, unitImage);
-  
-          if (unit.team === this.currentTeam) {
-            game.selectUnit(unit);
-            if (game.selectedUnit) {
-              const { x: currentX, y: currentY } = this.findUnitPosition(game.selectedUnit);
-              const possibleMoves = this.calculateMoveScope(game.selectedUnit, currentX, currentY);
-              // this.highlightMoveScope(possibleMoves);
-            } else {
-              this.clearMoveScope();
-            }
-            game.updateButtonStates();
-          }
         }
   
         cell.addEventListener('click', () => this.onCellClick(x, y));
@@ -212,9 +221,8 @@ class Board {
   
     function handleAddUnit(unitType) {
       game.enableAddMode(unitType);
-    }
+    };
   }
-
   updateStaminaBar(unit, unitBar) {
     const staminaPercentage = (unit.stamina / unit.totalStamina) * 100;
 

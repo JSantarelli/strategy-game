@@ -31,24 +31,29 @@ class Game {
     }
     return null;
   }
-
   selectUnit(unit) {
+    console.log(`Attempting to select unit from team: ${unit.team}`);
+    console.log(`Current team turn: ${this.currentTeam}`);
+    
+    // Check if unit can be selected based on its state and team
     if (unit.isDestroyed() || unit.team !== this.currentTeam) return;
     
     if (this.selectedUnit === unit) {
+      console.log(`Deselecting current ${this.selectedUnit} from team: ${unit.team}`);
       this.selectedUnit.state = 'idle';
       this.selectedUnit = null;
     } else {
-
       if (this.selectedUnit) {
+        console.log(`Deselecting previous unit from team: ${this.selectedUnit.team}`);
         this.selectedUnit.state = 'idle';
       }
-      
+      console.log(`Selecting new unit from team: ${unit.team}`);
       this.selectedUnit = unit;
       this.selectedUnit.state = 'selected';
     }
     this.updateButtonStates();
   }
+  
 
   updateButtonStates() {
     const isCurrentTeam = this.selectedUnit && this.selectedUnit.team === this.currentTeam;
