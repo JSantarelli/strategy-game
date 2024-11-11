@@ -27,15 +27,15 @@ class Game {
     const unitConfig = availableUnits.find(unit => unit.name === unitType);
     
     if (unitConfig) {
-      return new Unit(unitConfig);  // Pass the entire config object to Unit
+      return new Unit(unitConfig);
     }
     return null;
   }
+
   selectUnit(unit) {
     console.log(`Attempting to select unit from team: ${unit.team}`);
     console.log(`Current team turn: ${this.currentTeam}`);
     
-    // Check if unit can be selected based on its state and team
     if (unit.isDestroyed() || unit.team !== this.currentTeam) return;
     
     if (this.selectedUnit === unit) {
@@ -53,7 +53,6 @@ class Game {
     }
     this.updateButtonStates();
   }
-  
 
   updateButtonStates() {
     const isCurrentTeam = this.selectedUnit && this.selectedUnit.team === this.currentTeam;
