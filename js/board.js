@@ -239,12 +239,34 @@ class Board {
   }
 
   saveUnitState(unit) {
+    // First load existing state to get the previous stamina value
+    const existingState = this.loadUnitState(unit.id) || {};
+    
     const unitState = {
       id: unit.id,
       stamina: unit.stamina,
-      prevStamina: unit.totalStamina,
+      // Store current stamina as prevStamina for the next comparison
+      // But if this is the first time, use the current value
+      prevStamina: existingState.stamina || unit.stamina,
+      totalStamina: unit.totalStamina
     };
+    
     localStorage.setItem(`unit-${unit.id}`, JSON.stringify(unitState));
+  }
+  
+  applyHitEffect(unit, unitImage) {
+    const unitState = this.loadUnitState(unit.id);
+    
+    // Only apply hit effect if we have previous state and stamina decreased
+    if (unitState && unitState.prevStamina > unit.stamina) {
+      unitImage.classList.add('hit-effect');
+      setTimeout(() => {
+        unitImage.classList.remove('hit-effect');
+      }, 600);
+    }
+    
+    // Save the state after checking
+    this.saveUnitState(unit);
   }
 
   loadUnitState(unitId) {
