@@ -1,4 +1,4 @@
-const board = new Board(36, 18);
+const board = new Board(32, 20);
 const game = new Game(board);
 
 const flag = game.createUnit("Flag");
@@ -26,7 +26,7 @@ ukSoldier1.id = "uk010";
 ukSoldier2.id = "uk011";
 ukSoldier3.id = "uk012";
 
-board.placeUnit(flag, 20, 5);
+board.placeUnit(flag, 20, 12);
 // UK Forces
 board.placeUnit(ukSoldier1, 19, 5);
 board.placeUnit(ukSoldier2, 18, 4);
@@ -41,7 +41,7 @@ board.placeUnit(ukKing01, 19, 2);
 board.placeUnit(ukKing02, 17, 5);
 board.placeUnit(ukNimrod01, 15, 3);
 board.placeUnit(ukNimrod02, 21, 5);
-board.placeUnit(ukInvincible, 19, 7);
+// board.placeUnit(ukInvincible, 26, 3);
 
 board.renderBoard('board');
 board.currentTeam = 'arg';  
