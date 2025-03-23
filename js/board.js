@@ -193,8 +193,8 @@ class Board {
 
           // Check if the unit has the span property and apply styles
           if (unit.span) {
-            cell.style.gridColumn = `span ${unit.span.columns}`;
-            cell.style.gridRow = `span ${unit.span.rows}`;
+            cell.style.height = `${unit.span.columns}%`;
+            cell.style.width = `${unit.span.rows}%`;
           }
 
           cell.appendChild(unitImage);
@@ -219,6 +219,7 @@ class Board {
       game.enableAddMode(unitType);
     };
   }
+
   updateStaminaBar(unit, unitBar) {
     const staminaPercentage = (unit.stamina / unit.totalStamina) * 100;
 

@@ -8,7 +8,7 @@ const availableUnits = [
     totalStamina: 0,
     cost: 10000,          
     team: 'uk',
-    span: { columns: 1, rows: 1 }
+    span: { columns: 100, rows: 100 }
   },
   // ARG
   {
@@ -24,7 +24,7 @@ const availableUnits = [
     type: "aircraft",
     team: "arg",
     imgPath: 'arg-dagger.png',
-    span: { columns: 1, rows: 1 }
+    span: { columns: 100, rows: 100 }
   },
   {
     id: 'arg02',
@@ -39,7 +39,7 @@ const availableUnits = [
     type: "aircraft",
     team: "arg",
     imgPath: 'arg-chinook.png',
-    span: { columns: 1, rows: 1 }
+    span: { columns: 100, rows: 100 }
   },
   {
     id: 'arg03',
@@ -54,7 +54,7 @@ const availableUnits = [
     type: "aircraft",
     team: "arg",
     imgPath: 'arg-pucara.png',
-    span: { columns: 1, rows: 1 }
+    span: { columns: 100, rows: 100 }
   },
   {
     id: 'arg04',
@@ -69,7 +69,7 @@ const availableUnits = [
     type: "aircraft",
     team: "arg",
     imgPath: 'arg-etendard.png',
-    span: { columns: 1, rows: 1 }
+    span: { columns: 100, rows: 100 }
   },
   {
     id: 'arg05',
@@ -84,7 +84,7 @@ const availableUnits = [
     type: "aircraft carrier",
     team: "arg",
     imgPath: 'arg-ara-25.png',
-    span: { columns: 2, rows: 2 }
+    span: { columns: 200, rows: 200 }
   },
   {
     id: 'arg06',
@@ -99,7 +99,7 @@ const availableUnits = [
     type: "infantry",
     team: "arg",
     imgPath: 'arg-soldados.png',
-    span: { columns: 1, rows: 1 }
+    span: { columns: 100, rows: 100 }
   },
 
   // UK
@@ -116,7 +116,7 @@ const availableUnits = [
     type: "aircraft",
     team: "uk",
     imgPath: 'uk-avro.png',
-    span: { columns: 1, rows: 1 }
+    span: { columns: 100, rows: 100 }
   },
   {
     id: 'uk02',
@@ -131,7 +131,7 @@ const availableUnits = [
     type: "aircraft",
     team: "uk",
     imgPath: 'uk-harrier.png',
-    span: { columns: 1, rows: 1 }
+    span: { columns: 100, rows: 100 }
   },
   {
     id: 'uk03',
@@ -146,7 +146,7 @@ const availableUnits = [
     type: "aircraft",
     team: "uk",
     imgPath: "uk-sea-king.png",
-    span: { columns: 1, rows: 1 }
+    span: { columns: 100, rows: 100 }
   },
   {
     id: 'uk04',
@@ -161,7 +161,7 @@ const availableUnits = [
     type: "aircraft",
     team: "uk",
     imgPath: 'uk-nimrod.png',
-    span: { columns: 1, rows: 1 }
+    span: { columns: 100, rows: 100 }
   },
   {
     id: 'uk05',
@@ -176,7 +176,7 @@ const availableUnits = [
     type: "aircraft carrier",
     team: "uk",
     imgPath: 'uk-invincible.png',
-    span: { columns: 2, rows: 2 }
+    span: { columns: 200, rows: 200 }
   },
   {
     id: 'uk06',
@@ -191,7 +191,7 @@ const availableUnits = [
     type: "infantry",
     team: "uk",
     imgPath: 'uk-soldiers.png',
-    span: { columns: 1, rows: 1 }
+    span: { columns: 100, rows: 100 }
   }
 ];
 
