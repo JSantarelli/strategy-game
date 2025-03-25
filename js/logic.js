@@ -13,6 +13,15 @@ class Game {
     this.updateButtonStates();
   }
 
+  enableTargetMode() {
+    if (this.selectedUnit) {
+      this.targetMode = true;
+      console.log('Target mode enabled. Select an enemy unit to attack.');
+      // Optional: Add visual indication that target mode is active
+      document.body.classList.add('target-mode');
+    }
+  }
+
   enableAddMode(unitType) {
     this.addMode = true;
     this.unitToAdd = this.createUnit(unitType);
@@ -32,10 +41,37 @@ class Game {
     return null;
   }
 
+  // Modified selectUnit method to handle target selection
   selectUnit(unit) {
     console.log(`Attempting to select unit from team: ${unit.team}`);
     console.log(`Current team turn: ${this.currentTeam}`);
+    console.log(`Target mode: ${this.targetMode}`);
     
+    // If in target mode, handle enemy unit selection
+    if (this.targetMode) {
+      if (this.selectedUnit && unit.team !== this.selectedUnit.team) {
+        const distance = this.board.getDistance(
+          ...Object.values(this.board.findUnitPosition(this.selectedUnit)),
+          ...Object.values(this.board.findUnitPosition(unit))
+        );
+        
+        if (distance <= this.selectedUnit.fireScope) {
+          this.attackSelectedUnit(unit);
+          this.targetMode = false;
+          document.body.classList.remove('target-mode');
+          return;
+        } else {
+          console.log('Target is out of attack range.');
+        }
+      }
+      
+      // Exit target mode if selection is invalid
+      this.targetMode = false;
+      document.body.classList.remove('target-mode');
+      return;
+    }
+
+    // Existing unit selection logic
     if (unit.isDestroyed() || unit.team !== this.currentTeam) return;
     
     if (this.selectedUnit === unit) {
@@ -54,6 +90,7 @@ class Game {
     this.updateButtonStates();
   }
 
+  // Modify updateButtonStates to include manual targeting
   updateButtonStates() {
     const isCurrentTeam = this.selectedUnit && this.selectedUnit.team === this.currentTeam;
 
@@ -73,15 +110,28 @@ class Game {
     this.moveButton.disabled = true;
   }
 
-  handleAttack() {
-    if (this.selectedUnit) {
-      const target = this.findTarget();
-      if (target) {
-        this.attackSelectedUnit(target);
+ // Modify handleAttack to support manual targeting
+ handleAttack() {
+  if (this.selectedUnit) {
+    // First, try to find an automatic target
+    const automaticTarget = this.findTarget();
+    
+    if (automaticTarget) {
+      // If an automatic target exists, offer a choice
+      const confirmAuto = confirm('Automatically attack the nearest enemy unit?');
+      if (confirmAuto) {
+        this.attackSelectedUnit(automaticTarget);
+      } else {
+        // Enable manual target mode
+        this.enableTargetMode();
       }
+    } else {
+      // No automatic target, enable manual target mode
+      this.enableTargetMode();
     }
-    this.attackButton.disabled = true;
   }
+  this.attackButton.disabled = true;
+}
 
   getUnitElement(unit) {
     return document.getElementById(`unit-${unit.id}`);
