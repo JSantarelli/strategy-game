@@ -1,9 +1,8 @@
 class Game {
   constructor(board) {
     this.board = board;
-    this.selectedUnit = null;
-    this.unitToAdd = null;
-    this.currentTeam = 'arg'; 
+    // this.selectedUnit = null;
+    // this.unitToAdd = null;
 
     this.moveButton = document.getElementById('moveButton');
     this.attackButton = document.getElementById('attackButton');

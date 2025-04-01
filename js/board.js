@@ -28,8 +28,8 @@ class Board {
     this.grid = this.createGrid();
     this.currentTeam = 'uk'; 
     this.budget = {
-      uk: 300000000, 
-      arg: 2500000000 
+      uk: 580000, 
+      arg: 250000 
     };
     this.budgetIndicator = this.showBudget();
   }
@@ -77,6 +77,7 @@ class Board {
   
   // Check if a unit is from a particular team
   isUnitTeam(unit) {
+    console.log('Unit team:', unit.team, 'Current team:', this.currentTeam);
     return unit.team === this.currentTeam;
   }
     
@@ -144,7 +145,7 @@ class Board {
     if (!unit) return false; // Add this line to handle null unit safely
 
     if (unit.type === 'aircraft') return true;
-    if (unit.type === 'aircraft carrier' && terrain === 'water') return true;
+    if (unit.type === 'navy' && terrain === 'water') return true;
     if (unit.type === 'infantry' && terrain === 'land') return true;
     if (unit.type === 'building' && terrain === 'land') return true;
 

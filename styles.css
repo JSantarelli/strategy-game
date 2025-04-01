@@ -79,7 +79,7 @@ fieldset {
   width: 90%;
   text-align: center;
   font-size: 6px;
-  bottom: 10px;
+  top: 95%;
   position: absolute;
   border-radius: 2px;
   background-color: inherit;
