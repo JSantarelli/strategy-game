@@ -15,7 +15,7 @@ class Game {
   enableTargetMode() {
     if (this.selectedUnit) {
       this.targetMode = true;
-      console.log('Target mode enabled. Select an enemy unit to attack.');
+      // console.log('Target mode enabled. Select an enemy unit to attack.');
       // Optional: Add visual indication that target mode is active
       document.body.classList.add('target-mode');
     }
@@ -42,9 +42,9 @@ class Game {
 
   // Modified selectUnit method to handle target selection
   selectUnit(unit) {
-    console.log(`Attempting to select unit from team: ${unit.team}`);
-    console.log(`Current team turn: ${this.currentTeam}`);
-    console.log(`Target mode: ${this.targetMode}`);
+    // console.log(`Attempting to select unit from team: ${unit.team}`);
+    // console.log(`Current team turn: ${this.currentTeam}`);
+    // console.log(`Target mode: ${this.targetMode}`);
     
     // If in target mode, handle enemy unit selection
     if (this.targetMode) {
@@ -74,15 +74,15 @@ class Game {
     if (unit.isDestroyed() || unit.team !== this.currentTeam) return;
     
     if (this.selectedUnit === unit) {
-      console.log(`Deselecting current ${this.selectedUnit} from team: ${unit.team}`);
+      // console.log(`Deselecting current ${this.selectedUnit} from team: ${unit.team}`);
       this.selectedUnit.state = 'idle';
       this.selectedUnit = null;
     } else {
       if (this.selectedUnit) {
-        console.log(`Deselecting previous unit from team: ${this.selectedUnit.team}`);
+        // console.log(`Deselecting previous unit from team: ${this.selectedUnit.team}`);
         this.selectedUnit.state = 'idle';
       }
-      console.log(`Selecting new unit from team: ${unit.team}`);
+      // console.log(`Selecting new unit from team: ${unit.team}`);
       this.selectedUnit = unit;
       this.selectedUnit.state = 'selected';
     }
@@ -226,12 +226,12 @@ class Game {
 
   performAITurn() {
     const ukUnits = this.getUnitsByTeam('uk');
-    console.log('AI is performing turn with units:', ukUnits);
+    // console.log('AI is performing turn with units:', ukUnits);
   
       for (const unit of ukUnits) {
         if (!unit.isDestroyed()) {
           const target = this.findNearestEnemy(unit);
-          console.log('Target found for AI:', target);
+          // console.log('Target found for AI:', target);
     
           if (target) {
             const unitPosition = this.board.findUnitPosition(unit);
@@ -239,7 +239,7 @@ class Game {
     
             if (unitPosition && targetPosition) {
               const distance = this.board.getDistance(unitPosition.x, unitPosition.y, targetPosition.x, targetPosition.y);
-              console.log(`Distance from ${unit.name} to ${target.name}:`, distance);
+              // console.log(`Distance from ${unit.name} to ${target.name}:`, distance);
 
               if (distance <= unit.fireScope) {
                 console.log(`AI attacking ${target.name} with ${unit.name}`);
@@ -266,17 +266,17 @@ class Game {
         const unit = this.board.getUnitAt(x, y);
         
         if (unit) {
-          console.log(`Detected unit at (${x}, ${y}):`, unit);
+          // console.log(`Detected unit at (${x}, ${y}):`, unit);
         }
         
         if (unit && unit.team === team && !unit.isDestroyed()) {
-          console.log(`Found ${team} unit at (${x}, ${y})`);
+          // console.log(`Found ${team} unit at (${x}, ${y})`);
           units.push(unit);
         }
       }
     }
   
-    console.log(`All ${team} units found:`, units);
+    // console.log(`All ${team} units found:`, units);
     return units;
   }
 
@@ -343,15 +343,15 @@ class Game {
   // Attack target position
   attackUnit(attacker, target) {
     if (!target.isDestroyed()) {
-      console.log(`${attacker.name} attacks ${target.name}`);
+      // console.log(`${attacker.name} attacks ${target.name}`);
       target.takeDamage(attacker.firePower);
       if (target.isDestroyed()) {
-        console.log(`${target.name} has been destroyed!`);
+        // console.log(`${target.name} has been destroyed!`);
       } else {
-        console.log(`${target.name} has ${target.stamina} health remaining.`);
+        // console.log(`${target.name} has ${target.stamina} health remaining.`);
       }
     } else {
-      console.log(`${target.name} is already destroyed, cannot attack.`);
+      // console.log(`${target.name} is already destroyed, cannot attack.`);
     }
     this.board.renderBoard('board');
   }

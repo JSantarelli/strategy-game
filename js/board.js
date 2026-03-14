@@ -11,7 +11,7 @@ const predefinedGrid = [
   ['water', 'water', 'water', 'water','water', 'water', 'land', 'land', 'water', 'water', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
   ['water', 'water', 'water', 'water','water', 'water', 'water', 'land', 'land', 'water', 'land', 'land', 'land', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
   ['water', 'water', 'water', 'water','water', 'water', 'water', 'water', 'land', 'land', 'land', 'land', 'water', 'water', 'land', 'land', 'land', 'land', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
-  ['water', 'water', 'water', 'water','water', 'water', 'water', 'water', 'land', 'land', 'land', 'water', 'water  ', 'water', 'land', 'land', 'land', 'water', 'land', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+  ['water', 'water', 'water', 'water','water', 'water', 'water', 'water', 'land', 'land', 'land', 'water', 'water', 'water', 'land', 'land', 'land', 'water', 'land', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
   ['water', 'water', 'water', 'water','water', 'water', 'water', 'water', 'water', 'land', 'water', 'water', 'water', 'land', 'land', 'land', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
   ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
   ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
@@ -49,7 +49,7 @@ class Board {
   }
 
   placeUnit(unit, x, y) {
-    console.log('Current Team at start:', this.currentTeam);
+    // console.log('Current Team at start:', this.currentTeam);
 
     if (this.isWithinBounds(x, y)) {
       const cell = this.grid[y][x];
@@ -64,11 +64,11 @@ class Board {
             return false;
           }
         } else {
-          console.log(`Not enough budget to place ${unit.name}.`);
+          // console.log(`Not enough budget to place ${unit.name}.`);
           return false;
         }
       } else {
-        console.log(`Unit ${unit.name} does not belong to the current team.`);
+        // console.log(`Unit ${unit.name} does not belong to the current team.`);
         return false;
       }
     }
@@ -77,7 +77,7 @@ class Board {
   
   // Check if a unit is from a particular team
   isUnitTeam(unit) {
-    console.log('Unit team:', unit.team, 'Current team:', this.currentTeam);
+    // console.log('Unit team:', unit.team, 'Current team:', this.currentTeam);
     return unit.team === this.currentTeam;
   }
     
@@ -90,8 +90,9 @@ class Board {
         this.grid[y][x].unit = null; 
         targetCell.unit = unit;       
       } else {
-        console.log('Cannot move unit to incompatible terrain or occupied cell.');
+        // console.log('Cannot move unit to incompatible terrain or occupied cell.');
       }
+      // console.log(x, y, targetCell);
     }
   }
 
@@ -145,8 +146,12 @@ class Board {
     if (!unit) return false; // Add this line to handle null unit safely
 
     if (unit.type === 'aircraft') return true;
-    if (unit.type === 'navy' && terrain === 'water') return true;
+    if ((unit.type === 'navy' || unit.type === 'submarine') && terrain === 'water') return true;
     if (unit.type === 'infantry' && terrain === 'land') return true;
+    if (unit.type === 'artillery' && terrain === 'land') return true;
+    if (unit.type === 'anti-air' && terrain === 'land') return true;
+    if (unit.type === 'armor' && terrain === 'land') return true;
+    if (unit.type === 'support' && terrain === 'land') return true;
     if (unit.type === 'building' && terrain === 'land') return true;
 
     return false;
@@ -316,7 +321,7 @@ calculateMoveScope(unit, currentX, currentY) {
   }
 
   localStorage.setItem('highlightedCells', JSON.stringify(possibleMoves));
-  console.log(possibleMoves);
+  // console.log(possibleMoves);
   return possibleMoves;
 }
 
