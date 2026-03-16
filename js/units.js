@@ -141,7 +141,7 @@ class Unit {
     const enemyTeam = this.team === 'arg' ? 'uk' : 'arg'; 
     this.team = enemyTeam;
     this.updateAppearance(); 
-    // console.log(`Building ${this.id} has switched to team ${enemyTeam}`);
+    console.log(`Building ${this.id} has switched to team ${enemyTeam}`);
     // console.log(this.imgPath);
   }
 
